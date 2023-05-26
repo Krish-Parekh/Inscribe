@@ -1,0 +1,13 @@
+.button__filled {
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  margin-block: var(--sp-md);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  border-radius: var(--br-xl);
+  padding: var(--sp-md) var(--sp-lg);
+  align-self: flex-start;
+  color: var(--surface-color);
+  background-color: var(--primary-color);
+}

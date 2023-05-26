@@ -1,0 +1,41 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome__main {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90vh;
+  gap: var(--sp-md);
+}
+
+.welcome__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+.intro__headline {
+  line-height: 1;
+  font-size: 4.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--primary-text);
+}
+
+.intro__highlight {
+  color: var(--primary-color);
+}
+
+.intro__subheadline {
+  font-size: 1.25rem;
+  font-weight: var(--fw-light);
+  color: var(--secondary-text);
+  margin-top: var(--sp-md);
+}
+
+

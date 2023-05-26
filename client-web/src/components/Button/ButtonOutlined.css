@@ -1,4 +1,6 @@
 .button__outlined {
+  outline: 0;
+  cursor: pointer;
   background-color: transparent;
   border: 2px solid var(--primary-color);
   color: var(--primary-text);
@@ -7,5 +9,4 @@
   padding-inline: var(--sp-lg);
   padding-block: var(--sp-sm);
   border-radius: var(--br-xl);
-  outline: 0;
 }
