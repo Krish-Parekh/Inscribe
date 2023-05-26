@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+/* CSS Reset */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Define the default theme colors, typography, and layout values */
+:root {
+  /* Theme colors */
+  --primary-color: #717eee;
+  --secondary-color: #161819;
+  --surface-color: #f8fafb;
+  --primary-text: #161819;
+  --secondary-text: #909090;
+  --background-color: #ffffff;
+
+  /* Typography */
+  --font-family: "Poppins", sans-serif;
+
+  /* Font weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 600;
+
+  /* Font sizes */
+  --fs-small: 0.8rem;
+  --fs-medium: 1rem;
+  --fs-large: 1.2rem;
+  --fs-xlarge: 1.4rem;
+  --fs-xxlarge: 1.6rem;
+
+  /* Spacing values */
+  --sp-xs: 4px;
+  --sp-sm: 8px;
+  --sp-md: 16px;
+  --sp-lg: 24px;
+  --sp-xl: 32px;
+
+  /* Border radius values */
+  --br-sm: 4px;
+  --br-md: 8px;
+  --br-lg: 16px;
+
+  /* Box shadows */
+  --sh-sm: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  --sh-md: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  --sh-lg: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Define the colors for the dark theme */
+body.dark-theme {
+  --primary-color: #717eee;
+  --secondary-color: #191d1e;
+  --surface-color: #161819;
+  --primary-text: #f8fafb;
+  --secondary-text: #bdbdbd;
+  --background-color: #161819;
+}
+
+body {
+  font-family: var(--font-family);
+}
