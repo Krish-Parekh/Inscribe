@@ -1,0 +1,28 @@
+.navbar {
+  height: 10vh;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__title {
+  font-size: 1.875rem;
+  font-weight: var(--fw-bold);
+  color: var(--primary-text);
+}
+
+
+.navbar__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-lg);
+}
+.navbar__icons {
+  height: 34px;
+  width: 34px;
+  color: var(--primary-text);
+  cursor: pointer;
+}

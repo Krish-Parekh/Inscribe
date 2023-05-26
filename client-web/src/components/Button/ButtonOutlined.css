@@ -1,0 +1,11 @@
+.button__outlined {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-text);
+  font-size: 1.375rem;
+  font-weight: var(--fw-medium);
+  padding-inline: var(--sp-lg);
+  padding-block: var(--sp-sm);
+  border-radius: var(--br-xl);
+  outline: 0;
+}

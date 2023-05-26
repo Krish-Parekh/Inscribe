@@ -59,6 +59,7 @@ img {
   --br-sm: 4px;
   --br-md: 8px;
   --br-lg: 16px;
+  --br-xl: 32px;
 
   /* Box shadows */
   --sh-sm: 0px 1px 2px rgba(0, 0, 0, 0.1);
@@ -77,5 +78,6 @@ body.dark-theme {
 }
 
 body {
+  background-color: var(--background-color);
   font-family: var(--font-family);
 }
