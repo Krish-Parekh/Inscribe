@@ -1,0 +1,23 @@
+.backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  width: 30rem;
+  top: 50%;
+  left: 50%;
+  width: 30rem;
+  border-radius: var(--br-xl);
+  background-color: #fff;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

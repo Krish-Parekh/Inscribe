@@ -1,6 +1,7 @@
 .welcome {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .welcome__main {

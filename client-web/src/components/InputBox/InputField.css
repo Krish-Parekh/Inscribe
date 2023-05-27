@@ -1,0 +1,24 @@
+.input__field {
+  margin-block: var(--sp-md);
+  width: 100%;
+}
+.input {
+  width: 100%;
+  padding: var(--sp-sm) var(--sp-md);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  outline: 0;
+  border: 2px solid var(--secondary-text);
+  border-radius: var(--br-xl);
+}
+
+.input__error {
+  border: 2px solid red;
+}
+
+.error__message {
+  color: red;
+  padding: var(--sp-sm);
+  font-size: var(--fs-small);
+  margin-block: var(--sp-xs);
+}

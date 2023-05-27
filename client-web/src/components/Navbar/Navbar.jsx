@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import ButtonOutlined from "../Button/ButtonOutlined";
-const Navbar = () => {
+const Navbar = ({ handleClick }) => {
   const [themeToggle, setThemeToggle] = useState(false);
   const toggleTheme = () => {
     setThemeToggle(!themeToggle);
@@ -13,9 +13,7 @@ const Navbar = () => {
       body.classList.add("dark-theme");
     }
   };
-  const handleLogin = () => {
-    console.log("Login");
-  };
+
   return (
     <nav className="navbar">
       <h1 className="navbar__title">✏️ Inscribe</h1>
@@ -27,7 +25,7 @@ const Navbar = () => {
             <BsFillMoonFill className="navbar__icons" />
           )}
         </div>
-        <ButtonOutlined text="Login" onClick={handleLogin} />
+        <ButtonOutlined text="Login" onClick={handleClick}/>
       </div>
     </nav>
   );
