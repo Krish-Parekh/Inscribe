@@ -1,4 +1,5 @@
 .button__image {
+  margin-bottom: var(--sp-md);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -7,13 +8,14 @@
   border: ;
   cursor: pointer;
   font-family: var(--font-family);
-  border: 2px solid var(--secondary-text);
+  border: 2px solid var(--primary-text);
   background-color: transparent;
   padding-inline: var(--sp-lg);
   padding-block: var(--sp-sm);
   border-radius: var(--br-xl);
   font-size: 1rem;
   font-weight: var(--fw-medium);
+  color: var(--primary-text);
 }
 
 .button__icon {

@@ -7,7 +7,6 @@ import InputField from "../../components/InputBox/InputField";
 import PasswordField from "../../components/PasswordBox/PasswordField";
 import ButtonImage from "../../components/Button/ButtonImage";
 import "./WelcomePage.css";
-import ButtonOutlined from "../../components/Button/ButtonOutlined";
 
 const WelcomePage = () => {
   const [openLogin, setOpenLogin] = useState(false);

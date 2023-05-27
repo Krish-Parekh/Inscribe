@@ -14,7 +14,7 @@
   left: 50%;
   width: 30rem;
   border-radius: var(--br-xl);
-  background-color: #fff;
+  background-color: var(--surface-color);
   padding: 32px;
   display: flex;
   flex-direction: column;

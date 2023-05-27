@@ -39,4 +39,10 @@
   margin-top: var(--sp-md);
 }
 
+.welcome__greetings {
+  margin-bottom: var(--sp-md);
+  font-size: var(--fs-large);
+  font-weight: var(--fw-medium);
+  color: var(--primary-text);
+}
 
