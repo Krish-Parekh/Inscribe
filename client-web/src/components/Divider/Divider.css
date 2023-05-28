@@ -8,12 +8,12 @@
 }
 
 .divider hr {
-  color: var(--secondary-text);
+  color: var(--divider-color);
   margin-left: auto;
   margin-right: auto;
   width: 20%;
 }
 
 .divider__text {
-  color: var(--secondary-text);  
+  color: var(--divider-text-color);  
 }

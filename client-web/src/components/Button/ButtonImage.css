@@ -1,3 +1,8 @@
+/**
+ * ButtonImage.css
+ *
+ * Styles for the `ButtonImage` component
+ */
 .button__image {
   margin-bottom: var(--sp-md);
   width: 100%;
@@ -7,14 +12,14 @@
   outline: 0;
   cursor: pointer;
   font-family: var(--font-family);
-  border: 2px solid var(--primary-text);
+  border: 2px solid var(--outline-color-secondary);
   background-color: transparent;
   padding-inline: var(--sp-lg);
   padding-block: var(--sp-sm);
   border-radius: var(--br-xl);
   font-size: 1rem;
   font-weight: var(--fw-medium);
-  color: var(--primary-text);
+  color: var(--text-color);
 }
 
 .button__icon {

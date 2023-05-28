@@ -1,9 +1,14 @@
+/**
+ * ButtonOutlined.css
+ *
+ * Styles for the `ButtonOutlined` component
+ */
 .button__outlined {
   outline: 0;
   cursor: pointer;
   background-color: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-text);
+  border: 2px solid var(--outline-color-primary);
+  color: var(--outline-text-color);
   font-size: 1.375rem;
   font-weight: var(--fw-medium);
   padding-inline: var(--sp-lg);

@@ -1,3 +1,8 @@
+/**
+ * ButtonFilled.css
+ *
+ * Styles for the `ButtonFilled` component
+ */
 .button__filled {
   outline: 0;
   border: 0;
@@ -8,6 +13,6 @@
   border-radius: var(--br-xl);
   padding: var(--sp-md) var(--sp-lg);
   align-self: flex-start;
-  color: var(--surface-color);
-  background-color: var(--primary-color);
+  color: var(--button-text-color-primary);
+  background-color: var(--button-color);
 }

@@ -1,3 +1,4 @@
+/* Navbar styles */
 .navbar {
   height: 10vh;
   width: 80%;
@@ -7,22 +8,25 @@
   align-items: center;
 }
 
+/* Navbar title styles */
 .navbar__title {
   font-size: 1.875rem;
   font-weight: var(--fw-bold);
-  color: var(--primary-text);
+  color: var(--text-color);
 }
 
-
+/* Navbar buttons styles */
 .navbar__buttons {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--sp-lg);
 }
+
+/* Navbar icons styles */
 .navbar__icons {
-  height: 34px;
-  width: 34px;
-  color: var(--primary-text);
+  height: var(--is-lg);
+  width: var(--is-lg);
+  color: var(--icon-color);
   cursor: pointer;
 }

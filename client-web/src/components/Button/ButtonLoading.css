@@ -1,3 +1,8 @@
+/**
+ * ButtonLoading.css
+ *
+ * Styles for the `ButtonLoading` component
+ */
 .button__loading {
   width: 100%;
   outline: 0;
@@ -7,8 +12,8 @@
   font-size: 1rem;
   border-radius: var(--br-xl);
   padding: var(--sp-sm) var(--sp-sm);
-  color: var(--surface-color);
-  background-color: var(--primary-color);
+  color: var(--button-text-color-primary);
+  background-color: var(--button-color);
   display: flex;
   justify-content: center;
 }
@@ -23,8 +28,8 @@
 }
 
 .spinner {
-  border: 2px solid #fff;
-  border-top: 2px solid var(--primary-color);
+  border: 2px solid var(--progress-bar-border-color);
+  border-top: 2px solid var(--progress-bar-background-color);
   border-radius: 100%;
   width: 25px;
   height: 25px;

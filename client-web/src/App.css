@@ -25,13 +25,33 @@ img {
 /* Define the default theme colors, typography, and layout values */
 :root {
   /* Theme colors */
-  --primary-color: #717eee;
-  --secondary-color: #161819;
-  --surface-color: #f8fafb;
-  --primary-text: #161819;
-  --secondary-text: #909090;
-  --background-color: #ffffff;
-  --error-color: #ED4C5C;
+  --blue-violet-color: #717eee;
+  --dark-gray-color: #161819;
+  --light-gray-color: #f8fafb;
+  --very-dark-gray-color: #161819;
+  --medium-dark-gray-color: #909090;
+  --white-color: #ffffff;
+  --crimson-color: #ED4C5C;
+  --lime-green: #28A745;
+
+  --text-color: var(--very-dark-gray-color);
+  --icon-color: var(--very-dark-gray-color);
+  --background-color: var(--white-color);
+  --error-color: var(--crimson-color);
+  --success-color: var(--lime-green);
+  --span-color: var(--blue-violet-color);
+  --outline-color-primary: var(--blue-violet-color);
+  --outline-color-secondary: var(--very-dark-gray-color);
+  --outline-text-color: var(--very-dark-gray-color);
+  --button-color: var(--blue-violet-color);
+  --button-text-color-primary: var(--white-color);
+  --button-text-color-secondary: var(--very-dark-gray-color);
+  --subtitles-color: var(--medium-dark-gray-color);
+  --progress-bar-border-color: var(--light-gray-color);
+  --progress-bar-background-color: var(--blue-violet-color);
+  --divider-color: var(--light-gray-color);
+  --divider-text-color: var(--medium-dark-gray-color);
+
 
   /* Typography */
   --font-family: "Poppins", sans-serif;
@@ -66,16 +86,25 @@ img {
   --sh-sm: 0px 1px 2px rgba(0, 0, 0, 0.1);
   --sh-md: 0px 2px 4px rgba(0, 0, 0, 0.1);
   --sh-lg: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  /* Icon Size */
+  --is-sm: 16px;
+  --is-md: 24px;
+  --is-lg: 32px;
+  --is-xl: 48px;
 }
 
 /* Define the colors for the dark theme */
 body.dark-theme {
-  --primary-color: #717eee;
-  --secondary-color: #191d1e;
-  --surface-color: #161819;
-  --primary-text: #f8fafb;
-  --secondary-text: #bdbdbd;
-  --background-color: #161819;
+  --text-color: var(--light-gray-color);
+  --icon-color: var(--light-gray-color);
+  --background-color: var(--very-dark-gray-color);
+  --outline-color-primary: var(--blue-violet-color);
+  --outline-color-secondary: var(--light-gray-color);
+  --outline-text-color: var(--white-color);
+  --button-color: var(--blue-violet-color);
+  --button-text-color-secondary: var(--white-color);
+  --subtitles-color: var(--light-gray-color);
 }
 
 body {

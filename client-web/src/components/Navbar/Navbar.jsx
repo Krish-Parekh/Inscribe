@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import "./Navbar.css";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import ButtonOutlined from "../Button/ButtonOutlined";
+import "./Navbar.css";
+
+// Navbar Component
 const Navbar = ({ handleClick }) => {
+
+  // state to manage the theme toggle
   const [themeToggle, setThemeToggle] = useState(false);
+
+  // function to toggle the theme
   const toggleTheme = () => {
     setThemeToggle(!themeToggle);
     const body = document.querySelector("body");
+
+    // Applying/removing the dark-theme class based on the toggle state
     if (themeToggle) {
       body.classList.remove("dark-theme");
     } else {
@@ -25,7 +33,7 @@ const Navbar = ({ handleClick }) => {
             <BsFillMoonFill className="navbar__icons" />
           )}
         </div>
-        <ButtonOutlined text="Login" onClick={handleClick}/>
+        <ButtonOutlined text="Login" onClick={handleClick} />
       </div>
     </nav>
   );

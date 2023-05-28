@@ -25,17 +25,17 @@
   line-height: 1;
   font-size: 4.25rem;
   font-weight: var(--fw-bold);
-  color: var(--primary-text);
+  color: var(--text-color);
 }
 
 .intro__highlight {
-  color: var(--primary-color);
+  color: var(--span-color);
 }
 
 .intro__subheadline {
   font-size: 1.25rem;
   font-weight: var(--fw-light);
-  color: var(--secondary-text);
+  color: var(--subtitles-color);
   margin-top: var(--sp-md);
 }
 
