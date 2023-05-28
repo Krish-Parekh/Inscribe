@@ -31,6 +31,7 @@ img {
   --primary-text: #161819;
   --secondary-text: #909090;
   --background-color: #ffffff;
+  --error-color: #ED4C5C;
 
   /* Typography */
   --font-family: "Poppins", sans-serif;

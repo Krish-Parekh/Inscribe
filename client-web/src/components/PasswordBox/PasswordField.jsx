@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import "./PasswordField.css"
-const PasswordField = ({ type, value, onChange, placeholder, error }) => {
+const PasswordField = ({ type, value, onChange, placeholder, name, error }) => {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
   return (
@@ -12,6 +12,7 @@ const PasswordField = ({ type, value, onChange, placeholder, error }) => {
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          name={name}
           className={`input ${error && "input__error"}`}
         />
         {showPassword ? (

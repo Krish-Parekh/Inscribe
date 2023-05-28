@@ -8,16 +8,16 @@
   font-family: var(--font-family);
   font-size: 1rem;
   outline: 0;
-  border: 2px solid var(--primary-text);
+  border: 1px solid var(--primary-text);
   border-radius: var(--br-xl);
 }
 
 .input__error {
-  border: 2px solid red;
+  border: 2px solid var(--error-color);
 }
 
 .error__message {
-  color: red;
+  color: var(--error-color);
   padding: var(--sp-sm);
   font-size: var(--fs-small);
   margin-block: var(--sp-xs);

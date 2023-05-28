@@ -1,0 +1,32 @@
+.button__loading {
+  width: 100%;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  border-radius: var(--br-xl);
+  padding: var(--sp-sm) var(--sp-sm);
+  color: var(--surface-color);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  border: 2px solid #fff;
+  border-top: 2px solid var(--primary-color);
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}

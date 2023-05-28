@@ -2,34 +2,51 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import WelcomeIllustration from "../../images/welcome_illustration.png";
 import ButtonFilled from "../../components/Button/ButtonFilled";
-import ModalDialog from "../../components/Modal/ModalDialog";
-import InputField from "../../components/InputBox/InputField";
-import PasswordField from "../../components/PasswordBox/PasswordField";
-import ButtonImage from "../../components/Button/ButtonImage";
+import AuthModal from "../../components/Modal/AuthModal";
 import "./WelcomePage.css";
 
 const WelcomePage = () => {
   const [openLogin, setOpenLogin] = useState(false);
-  const toggleModal = () => setOpenLogin(!openLogin);
+  const [openSignup, setOpenSignup] = useState(false);
+  
 
-  const [loginCredentials, setUserCredentials] = useState({
+  const [loginCredentials, setLoginCredentials] = useState({
+    email: "",
+    password: "",
+  });
+  const [signupCredentials, setSignupCredentials] = useState({
+    username: "",
     email: "",
     password: "",
   });
 
-  const [credentialErrors, setLoginErrors] = useState({
+  const [loginError, setLoginErrors] = useState({
     email: "",
     password: "",
   });
 
-  const handleChange = (e) => {
+  const [signupError, setSignupErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const toggleLoginModal = () => setOpenLogin(!openLogin);
+  const toggleSignupModal = () => setOpenSignup(!openSignup);
+
+  const handleLoginChange = (e) => {
     const { name, value } = e.target;
-    setUserCredentials((prev) => ({ ...prev, [name]: value }));
+    setLoginCredentials((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSignupChange = (e) => {
+    const { name, value } = e.target;
+    setSignupCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <div className="welcome">
-      <Navbar handleClick={toggleModal} />
+      <Navbar handleClick={toggleLoginModal} />
       <div className="welcome__main">
         <div className="welcome__intro">
           <h1 className="intro__headline">
@@ -41,7 +58,7 @@ const WelcomePage = () => {
             Unleash Your Creativity, Sculpt Your Thoughts, and Shape <br /> Your
             Success with Inscribe’s Artful Note-Taking Experience.
           </p>
-          <ButtonFilled text="Create Account" />
+          <ButtonFilled text="Create Account" onClick={toggleSignupModal} />
         </div>
         <div className="welcome__illustration">
           <img
@@ -51,22 +68,18 @@ const WelcomePage = () => {
           />
         </div>
       </div>
-      {openLogin && (
-        <ModalDialog isOpen={openLogin} onClose={toggleModal}>
-          <p className="welcome__greetings">Welcome Back</p>
-          <ButtonImage text="Login with Google" />
-          <InputField
-            type="email"
-            placeholder="Email"
-            onChange={handleChange}
-          />
-          <PasswordField
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
-        </ModalDialog>
-      )}
+      <AuthModal
+        isOpen={openLogin}
+        onClose={toggleLoginModal}
+        mode="login"
+        onInputChange={handleLoginChange}
+      />
+      <AuthModal
+        isOpen={openSignup}
+        onClose={toggleSignupModal}
+        mode="signup"
+        onInputChange={handleSignupChange}
+      />
     </div>
   );
 };
