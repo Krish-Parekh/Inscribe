@@ -31,8 +31,8 @@ img {
   --very-dark-gray-color: #161819;
   --medium-dark-gray-color: #909090;
   --white-color: #ffffff;
-  --crimson-color: #ED4C5C;
-  --lime-green: #28A745;
+  --crimson-color: #ed4c5c;
+  --lime-green: #28a745;
 
   --text-color: var(--very-dark-gray-color);
   --icon-color: var(--very-dark-gray-color);
@@ -52,6 +52,11 @@ img {
   --divider-color: var(--light-gray-color);
   --divider-text-color: var(--medium-dark-gray-color);
 
+  --sidebar-bg-color: var(--white-color);
+  --sidebar-text-color: var(--dark-gray-color);
+  --sidebar-icon-color: var(--dark-gray-color);
+  --sidebar-icon-color-active: var(--blue-violet-color);
+  --sidebar-surface-color: var(--light-gray-color);
 
   /* Typography */
   --font-family: "Poppins", sans-serif;
@@ -105,9 +110,15 @@ body.dark-theme {
   --button-color: var(--blue-violet-color);
   --button-text-color-secondary: var(--white-color);
   --subtitles-color: var(--light-gray-color);
+  --sidebar-bg-color: var(--dark-gray-color);
+  --sidebar-text-color: var(--light-gray-color);
+  --sidebar-icon-color: var(--light-gray-color);
+  --sidebar-icon-color-active: var(--blue-violet-color);
+  --sidebar-surface-color: var(--very-dark-gray-color);
 }
 
 body {
   background-color: var(--background-color);
   font-family: var(--font-family);
+  transition: background-color 0.5s, color 0.5s;
 }

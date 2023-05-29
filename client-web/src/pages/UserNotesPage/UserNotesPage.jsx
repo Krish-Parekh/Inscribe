@@ -1,7 +1,8 @@
 import React from "react";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const UserNotesPage = () => {
-  return <div>UserNotesPage</div>;
+  return <Sidebar />;
 };
 
 export default UserNotesPage;

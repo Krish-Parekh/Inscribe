@@ -1,3 +1,8 @@
+/**
+ * InputField.css
+ *
+ * Styles for the `InputField` component
+ */
 .input__field {
   margin-bottom: var(--sp-md);
   width: 100%;

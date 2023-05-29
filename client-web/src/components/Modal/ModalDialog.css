@@ -1,3 +1,9 @@
+/**
+ * ModalDialog.css
+ *
+ * Styles for the `ModalDialog` component
+ */
+
 .backdrop {
   position: fixed;
   left: 0;

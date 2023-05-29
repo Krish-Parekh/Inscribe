@@ -2,6 +2,24 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./ModalDialog.css";
 
+/**
+ * ModalDialog.jsx
+ *
+ * `ModalDialog` is a component that displays a customizable modal dialog box.
+ * It uses framer-motion for animations.
+ *
+ * Props:
+ *  - `children` (node): Content to be rendered inside the modal.
+ *  - `isOpen` (bool): A flag indicating if the modal is open or not.
+ *  - `onClose` (function): A function to close the modal.
+ *
+ * @param {Object} props - Properties passed to component
+ * @param {React.ReactNode} props.children - Content to render in the modal
+ * @param {boolean} props.isOpen - Flag for modal's open state
+ * @param {Function} props.onClose - Function to close the modal
+ */
+
+// Variants for framer-motion to handle the backdrop animation
 const backdropVariants = {
   expanded: {
     opacity: 1,
@@ -11,6 +29,7 @@ const backdropVariants = {
   },
 };
 
+// Variants for framer-motion to handle the modal animation
 const modalVariants = {
   expanded: {
     x: "-50%",
@@ -23,6 +42,19 @@ const modalVariants = {
 };
 
 const ModalDialog = ({ children, isOpen, onClose }) => {
+  /*
+  // Handle Escape button press
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.keyCode === 27) onClose();
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [onClose]);
+  */
   return (
     <AnimatePresence>
       {isOpen && (
