@@ -26,7 +26,7 @@ img {
 :root {
   /* Theme colors */
   --blue-violet-color: #717eee;
-  --dark-gray-color: #161819;
+  --dark-gray-color: #191D1E;
   --light-gray-color: #f8fafb;
   --very-dark-gray-color: #161819;
   --medium-dark-gray-color: #909090;
@@ -51,12 +51,13 @@ img {
   --progress-bar-background-color: var(--blue-violet-color);
   --divider-color: var(--light-gray-color);
   --divider-text-color: var(--medium-dark-gray-color);
-
   --sidebar-bg-color: var(--white-color);
   --sidebar-text-color: var(--dark-gray-color);
   --sidebar-icon-color: var(--dark-gray-color);
   --sidebar-icon-color-active: var(--blue-violet-color);
   --sidebar-surface-color: var(--light-gray-color);
+
+  --color-pallette-surface: var(--white-color);
 
   /* Typography */
   --font-family: "Poppins", sans-serif;
@@ -115,6 +116,7 @@ body.dark-theme {
   --sidebar-icon-color: var(--light-gray-color);
   --sidebar-icon-color-active: var(--blue-violet-color);
   --sidebar-surface-color: var(--very-dark-gray-color);
+  --color-pallette-surface: var(--dark-gray-color);
 }
 
 body {

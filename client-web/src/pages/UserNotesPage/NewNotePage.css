@@ -48,39 +48,3 @@
   background-color: inherit;
   color: var(--text-color);
 }
-
-.custom__bottom {
-  position: absolute;
-  border-radius: 300px;
-  width: 20%;
-  bottom: 5%;
-  left: 50%;
-  padding: 16px;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-}
-
-.color__button {
-  border: 2px solid black;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: inherit;
-  cursor: pointer;
-}
-.color__one {
-  background-color: #C2C5FF;
-}
-.color__two {
-  background-color: #FFCCD9;
-}
-
-.color__three {
-  background-color: #FFF1D6;
-}
-
-.color__four {
-  background-color: #B3DFFF;
-}
