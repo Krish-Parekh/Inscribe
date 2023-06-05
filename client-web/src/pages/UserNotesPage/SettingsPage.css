@@ -1,0 +1,19 @@
+.setting__wrapper {
+  display: flex;
+}
+
+.setting__wrapper > * {
+  flex: 1;
+}
+
+.personal__info {
+  width: 50%;
+}
+.personal__info__item {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 8px;
+}
