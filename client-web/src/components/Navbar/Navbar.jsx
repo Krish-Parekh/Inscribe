@@ -32,7 +32,7 @@ const styles = {
   },
 };
 
-const Navbar = () => {
+const Navbar = ({ handleLoginClick, handleSignupClick }) => {
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -48,10 +48,18 @@ const Navbar = () => {
           spacing={2}
           sx={{ display: { xs: "none", sm: "flex" } }}
         >
-          <Button variant="outlined" sx={styles.button}>
+          <Button
+            variant="outlined"
+            sx={styles.button}
+            onClick={handleSignupClick}
+          >
             Sign up
           </Button>
-          <Button variant="outlined" sx={styles.button}>
+          <Button
+            variant="outlined"
+            sx={styles.button}
+            onClick={handleLoginClick}
+          >
             Login
           </Button>
         </Stack>
@@ -62,7 +70,12 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <CustomDrawer open={open} toggleDrawer={toggleDrawer}/>
+        <CustomDrawer
+          open={open}
+          toggleDrawer={toggleDrawer}
+          handleLoginClick={handleLoginClick}
+          handleSignupClick={handleSignupClick}
+        />
       </Toolbar>
     </AppBar>
   );

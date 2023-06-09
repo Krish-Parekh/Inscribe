@@ -28,18 +28,20 @@ const styles = {
   },
 };
 
-const listItems = [
-  {
-    icon: <AccountCircle />,
-    text: "SIGN UP",
-  },
-  {
-    icon: <VpnKey />,
-    text: "LOGIN",
-  },
-];
 
-const CustomDrawer = ({ open, toggleDrawer }) => {
+const CustomDrawer = ({ open, toggleDrawer, handleLoginClick, handleSignupClick }) => {
+  const listItems = [
+    {
+      icon: <AccountCircle />,
+      text: "SIGN UP",
+      action: handleSignupClick
+    },
+    {
+      icon: <VpnKey />,
+      text: "LOGIN",
+      action: handleLoginClick
+    },
+  ];
   return (
     <Drawer anchor="top" open={open} onClose={toggleDrawer}>
       <List sx={styles.drawer}>
@@ -52,7 +54,7 @@ const CustomDrawer = ({ open, toggleDrawer }) => {
         </ListItem>
         {listItems.map((item, index) => (
           <ListItem key={index}>
-            <ListItemButton>
+            <ListItemButton onClick={item.action}>
               <ListItemIcon sx={styles.listItem}>{item.icon}</ListItemIcon>
               <ListItemText>
                 <Typography sx={styles.listTitle}>{item.text}</Typography>

@@ -1,8 +1,9 @@
-import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import React, { useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Banner from "../../images/light_illustration.png";
+import Navbar from "../../components/Navbar/Navbar";
+import CustomModal from "../../components/CustomModal/CustomModal";
 const styles = {
   heroContainer: {
     flexGrow: 1,
@@ -15,8 +16,8 @@ const styles = {
     flexDirection: "row",
     padding: "0 2rem",
     justifyContent: {
-        xs: "space-betwee",
-        sm: "space-around",
+      xs: "space-betwee",
+      sm: "space-around",
     },
     alignItems: "center",
   },
@@ -25,39 +26,66 @@ const styles = {
     fontFamily: "var(--font-family)",
     fontWeight: "var(--fw-medium)",
     textAlign: {
-        xs: "center",
-        sm: "left",
+      xs: "center",
+      sm: "left",
     },
     fontSize: {
-        xs: "2rem",
-        sm: "4rem",
-    }
+      xs: "2rem",
+      sm: "4rem",
+    },
   },
   spanText: {
     color: "var(--tertiary-color)",
     fontSize: {
-        xs: "2rem",
-        sm: "4rem",
-    }
+      xs: "2rem",
+      sm: "4rem",
+    },
   },
   subtitle: {
     color: "var(--secondary-color)",
     fontFamily: "var(--font-family)",
     fontWeight: "var(--fw-regular)",
     fontSize: {
-        xs: "0.8rem",
-        sm: "1rem",
+      xs: "0.8rem",
+      sm: "1rem",
     },
     textAlign: {
-        xs: "center",
-        sm: "left",
-    }
+      xs: "center",
+      sm: "left",
+    },
   },
 };
 const Landing = () => {
+  const [modalState, setModalState] = useState({
+    authType: "",
+    open: false,
+  });
+  const handleLoginClick = () => {
+    setModalState({
+      authType: "login",
+      open: true,
+    });
+  };
+
+  const handleSignupClick = () => {
+    setModalState({
+      authType: "signup",
+      open: true,
+    });
+  };
+
+  const handleClose = () => {
+    setModalState({
+      authType: "",
+      open: false,
+    });
+  };
   return (
     <Stack direction="column" spacing={2} sx={{ height: "100vh" }}>
-      <Navbar />
+      <Navbar
+        handleLoginClick={handleLoginClick}
+        handleSignupClick={handleSignupClick}
+      />
       <Box sx={styles.heroContainer}>
         <Stack
           spacing={2}
@@ -82,6 +110,11 @@ const Landing = () => {
           </Box>
         </Stack>
       </Box>
+      <CustomModal
+        handleClose={handleClose}
+        open={modalState.open}
+        authType={modalState.authType}
+      />
     </Stack>
   );
 };
