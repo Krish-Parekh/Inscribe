@@ -55,7 +55,7 @@ const CustomModal = ({ open, handleClose, authType }) => {
   const togglePassword = () => setShowPassword(!showPassword);
   const isSignup = authType === "signup";
   return (
-    <Dialog fullWidth={true} open={open} maxWidth="md" TransitionComponent={Transition}>
+    <Dialog fullWidth={true} open={open} maxWidth="sm" TransitionComponent={Transition}>
       <DialogTitle>
         <Stack direction="row" sx={styles.modalTitleContainer}>
           <Typography sx={styles.modalTitle} variant="h4">

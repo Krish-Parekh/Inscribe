@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Banner from "../../images/light_illustration.png";
 import Navbar from "../../components/Navbar/Navbar";
 import CustomModal from "../../components/CustomModal/CustomModal";
+import CustomDrawer from "../../components/CustomDrawer/CustomDrawer";
 const styles = {
   heroContainer: {
     flexGrow: 1,
@@ -60,6 +61,10 @@ const Landing = () => {
     authType: "",
     open: false,
   });
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
   const handleLoginClick = () => {
     setModalState({
       authType: "login",
@@ -81,41 +86,50 @@ const Landing = () => {
     });
   };
   return (
-    <Stack direction="column" spacing={2} sx={{ height: "100vh" }}>
-      <Navbar
+    <Fragment>
+      <Stack direction="column" spacing={2} sx={{ height: "100vh" }}>
+        <Navbar
+          toggleDrawer={toggleDrawer}
+          handleLoginClick={handleLoginClick}
+          handleSignupClick={handleSignupClick}
+        />
+        <Box sx={styles.heroContainer}>
+          <Stack
+            spacing={2}
+            direction={{ xs: "column", sm: "row" }}
+            sx={styles.landingContainer}
+          >
+            <Stack spacing={2}>
+              <Typography variant="h2" sx={styles.title}>
+                Craft Your{" "}
+                <Typography variant="h2" component="span" sx={styles.spanText}>
+                  Ideas
+                </Typography>
+                , <br /> Craft Your Future!
+              </Typography>
+              <Typography variant="body1" sx={styles.subtitle}>
+                Unleash Your Creativity, Sculpt Your Thoughts, and Shape <br />{" "}
+                Your Success with Inscribe’s Artful Note-Taking Experience.
+              </Typography>
+            </Stack>
+            <Box>
+              <Box component="img" src={Banner} alt="banner" width="100%" />
+            </Box>
+          </Stack>
+        </Box>
+        <CustomModal
+          handleClose={handleClose}
+          open={modalState.open}
+          authType={modalState.authType}
+        />
+      </Stack>
+      <CustomDrawer
+        open={open}
+        toggleDrawer={toggleDrawer}
         handleLoginClick={handleLoginClick}
         handleSignupClick={handleSignupClick}
       />
-      <Box sx={styles.heroContainer}>
-        <Stack
-          spacing={2}
-          direction={{ xs: "column", sm: "row" }}
-          sx={styles.landingContainer}
-        >
-          <Stack spacing={2}>
-            <Typography variant="h2" sx={styles.title}>
-              Craft Your{" "}
-              <Typography variant="h2" component="span" sx={styles.spanText}>
-                Ideas
-              </Typography>
-              , <br /> Craft Your Future!
-            </Typography>
-            <Typography variant="body1" sx={styles.subtitle}>
-              Unleash Your Creativity, Sculpt Your Thoughts, and Shape <br />{" "}
-              Your Success with Inscribe’s Artful Note-Taking Experience.
-            </Typography>
-          </Stack>
-          <Box>
-            <Box component="img" src={Banner} alt="banner" width="100%" />
-          </Box>
-        </Stack>
-      </Box>
-      <CustomModal
-        handleClose={handleClose}
-        open={modalState.open}
-        authType={modalState.authType}
-      />
-    </Stack>
+    </Fragment>
   );
 };
 

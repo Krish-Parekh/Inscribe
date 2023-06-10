@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import CustomDrawer from "../CustomDrawer/CustomDrawer";
+
 const styles = {
   navbar: {
     boxShadow: "none",
@@ -26,17 +26,9 @@ const styles = {
     borderColor: "var(--tertiary-color)",
     color: "var(--tertiary-color)",
   },
-  drawer: {
-    backgroundColor: "var(--tertiary-color)",
-    color: "#FFFFFF",
-  },
 };
 
-const Navbar = ({ handleLoginClick, handleSignupClick }) => {
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+const Navbar = ({ toggleDrawer, handleLoginClick, handleSignupClick }) => {
   return (
     <AppBar position="static" sx={styles.navbar}>
       <Toolbar>
@@ -70,12 +62,6 @@ const Navbar = ({ handleLoginClick, handleSignupClick }) => {
         >
           <MenuIcon />
         </IconButton>
-        <CustomDrawer
-          open={open}
-          toggleDrawer={toggleDrawer}
-          handleLoginClick={handleLoginClick}
-          handleSignupClick={handleSignupClick}
-        />
       </Toolbar>
     </AppBar>
   );
