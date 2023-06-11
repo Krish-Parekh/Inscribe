@@ -30,6 +30,48 @@ export const navbarStyles = {
   },
 };
 
+/* NoteNavbar Styles */
+export const noteNavbarStyles = {
+  container: {
+    width: "100%",
+    padding: "1rem 0",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  title: {
+    flexGrow: 1,
+    fontFamily: "var(--font-family)",
+    fontWeight: "var(--fw-semibold)",
+  },
+  formControl: {
+    flexGrow: 2,
+    display: {
+      xs: "none",
+      sm: "flex",
+    },
+  },
+  buttonContainer: {
+    flexGrow: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  label: {
+    "&.Mui-focused": {
+      color: "var(--tertiary-color)",
+    },
+  },
+  searchField: {
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--tertiary-color)",
+    },
+    "&:hover > .MuiOutlinedInput-notchedOutline": {
+      borderColor: "var(--tertiary-color)",
+    },
+  },
+  menuTitle: {
+    fontFamily: "var(--font-family)",
+  }
+};
 /* AuthModal Styles */
 export const authModalStyles = {
   title: {
