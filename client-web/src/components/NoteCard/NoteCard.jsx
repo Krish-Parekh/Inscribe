@@ -42,11 +42,11 @@ const NoteCard = ({ id, title, content, timestamp }) => {
           >
             {content}
           </Typography>
-          <Button variant="outlined" sx={noteCardStyles.button}>
-            <Link to={`/note/${id}`} style={noteCardStyles.buttonText}>
+          <Link to={`/note/${id}`} sx={{ textDecoration: "none" }}>
+            <Button fullWidth variant="outlined" sx={noteCardStyles.button}>
               Read More
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Stack>
       </CardContent>
     </Card>

@@ -20,8 +20,9 @@ import {
   noteNavbarStyles,
   BrandStyledOutlinedInput,
 } from "../../styles/styles";
-
+import { useNavigate } from "react-router-dom";
 const NotesNavbar = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -29,6 +30,9 @@ const NotesNavbar = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleAddNote = () => {
+    navigate("/note/add");
   };
   return (
     <AppBar position="static" sx={navbarStyles.navbar}>
@@ -57,7 +61,7 @@ const NotesNavbar = () => {
           </FormControl>
           <Stack direction={"row"} sx={noteNavbarStyles.buttonContainer}>
             <Tooltip title="Add Note">
-              <IconButton>
+              <IconButton onClick={handleAddNote}>
                 <AddIcon />
               </IconButton>
             </Tooltip>

@@ -213,25 +213,53 @@ export const noteCardStyles = {
     fontWeight: "var(--fw-bold)",
   },
   content: {
+    flex: 1,
+    display: "-webkit-box",
+    overflow: "hidden",
     fontFamily: "var(--font-family)",
     fontWeight: "var(--fw-regular)",
-    flex: 1,
-    overflow: "hidden",
     textOverflow: "ellipsis",
-    display: "-webkit-box",
-    WebkitBoxOrient: "vertical",
     WebkitLineClamp: 6,
+    WebkitBoxOrient: "vertical",
   },
 
   button: {
     marginTop: "auto",
+    textDecoration: "none",
     fontFamily: "var(--font-family)",
     borderColor: "var(--tertiary-color)",
-  },
-
-  buttonText: {
-    textDecoration: "none",
     color: "var(--tertiary-color)",
+  },
+};
+
+/* Note Styles */
+export const noteStyles = {
+  container: {
+    height: "100vh",
+    padding: "0 1rem",
+  },
+};
+
+/* Input Field Styles */
+export const inputFieldStyles = {
+  title: {
+    fontFamily: "var(--font-family)",
+    fontWeight: "var(--fw-medium)",
+    padding: "1rem ",
+    fontSize: "1.5rem",
+    border: "none",
+    outline: "none",
+    backgroundColor: "transparent",
+  },
+  content: {
+    fontFamily: "var(--font-family)",
+    fontWeight: "var(--fw-regular)",
+    fontSize: "1.2rem",
+    padding: "1rem ",
+    height: "100%",
+    border: "none",
+    outline: "none",
+    backgroundColor: "transparent",
   },
 };
 

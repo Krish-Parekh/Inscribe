@@ -1,28 +1,39 @@
-import React from "react";
-import NoteNavbar from "../../components/Navbar/NoteNavbar";
-import { Stack, TextField, styled } from "@mui/material";
-const CustomTextField = styled(TextField)`
-  .MuiOutlinedInput-input {
-    font-family: var(--font-family);
-    font-size: 1.2rem;
-  }
-`;
+import React, { Fragment } from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import { Stack } from "@mui/material";
+import { noteStyles } from "../../styles/styles";
+import { BrandStyledTextField } from "../../styles/styles";
 const Note = () => {
+  const handleUpdate = () => {
+    console.log("Update");
+  };
+  const handleDelete = () => {
+    console.log("Delete");
+  };
+  const navbar = {
+    header: "✏️ Inscribe",
+    buttons: [
+      { label: "Update", onClick: handleUpdate },
+      { label: "Delete", onClick: handleDelete },
+    ],
+  };
   return (
-    <Stack direction="column" height="100vh" sx={{ padding: "16px" }} spacing={2}>
-      <NoteNavbar />
-      <CustomTextField label="Title" variant="outlined" margin="normal" />
-      <CustomTextField
-        label="Content"
-        variant="outlined"
-        multiline
-        inputProps={{
-          style: {
-            height: "75vh",
-          },
-        }}
-      />
-    </Stack>
+    <Fragment>
+      <Navbar headerText={navbar.header} buttons={navbar.buttons} />
+      <Stack direction="column" sx={noteStyles.container} spacing={2}>
+        <BrandStyledTextField label="Title" variant="outlined" margin="normal" />
+        <BrandStyledTextField
+          label="Content"
+          variant="outlined"
+          multiline
+          inputProps={{
+            style: {
+              height: "75vh",
+            },
+          }}
+        />
+      </Stack>
+    </Fragment>
   );
 };
 
