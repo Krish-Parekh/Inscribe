@@ -1,67 +1,26 @@
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Stack,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import React, { useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
+import React from "react";
+import { navbarStyles } from "../../styles/styles";
+import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 
-const styles = {
-  navbar: {
-    boxShadow: "none",
-    backgroundColor: "transparent",
-    color: "inherit",
-  },
-  title: {
-    flexGrow: 1,
-    fontFamily: "var(--font-family)",
-    fontWeight: "var(--fw-semibold)",
-  },
-  button: {
-    fontFamily: "var(--font-family)",
-    fontWeight: "var(--fw-semibold)",
-    borderColor: "var(--tertiary-color)",
-    color: "var(--tertiary-color)",
-  },
-};
-
-const Navbar = ({ toggleDrawer, handleLoginClick, handleSignupClick }) => {
+const Navbar = ({ headerText, buttons = [] }) => {
   return (
-    <AppBar position="static" sx={styles.navbar}>
+    <AppBar position="static" sx={navbarStyles.navbar}>
       <Toolbar>
-        <Typography variant="h5" component="div" sx={styles.title}>
-          ✏️ Inscribe
+        <Typography variant="h5" component="div" sx={navbarStyles.title}>
+          {headerText}
         </Typography>
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{ display: { xs: "none", sm: "flex" } }}
-        >
-          <Button
-            variant="outlined"
-            sx={styles.button}
-            onClick={handleSignupClick}
-          >
-            Sign up
-          </Button>
-          <Button
-            variant="outlined"
-            sx={styles.button}
-            onClick={handleLoginClick}
-          >
-            Login
-          </Button>
+        <Stack direction={"row"} spacing={2}>
+          {buttons.map((button, index) => (
+            <Button
+              key={index}
+              variant="outlined"
+              sx={navbarStyles.button}
+              onClick={button.onClick}
+            >
+              {button.label}
+            </Button>
+          ))}
         </Stack>
-        <IconButton
-          sx={{ display: { xs: "flex", sm: "none" } }}
-          color="inherit"
-          onClick={toggleDrawer}
-        >
-          <MenuIcon />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

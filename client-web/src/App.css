@@ -12,7 +12,7 @@
   --primary-color: #161819;
   --secondary-color: #909090;
   --tertiary-color: #717EEE;
-
+  --surface-color: #F8FAFB;
 }
 
 * {
@@ -23,4 +23,5 @@
 
 body {
   font-family: var(--font-family);
+  background-color: var(--surface-color);
 }

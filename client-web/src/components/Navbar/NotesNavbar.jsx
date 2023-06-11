@@ -10,8 +10,10 @@ import {
   InputAdornment,
   styled,
   Stack,
+  Menu,
+  MenuItem,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -52,6 +54,8 @@ const styles = {
 };
 const NotesNavbar = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const toggleOpen = () => setOpen(!open);
   return (
     <AppBar position="static" sx={styles.navbar}>
       <Toolbar>
@@ -63,7 +67,12 @@ const NotesNavbar = () => {
           flexGrow={1}
           sx={{ alignItems: "center" }}
         >
-          <Typography flexGrow={1} variant="h5" component="div" sx={styles.title}>
+          <Typography
+            flexGrow={1}
+            variant="h5"
+            component="div"
+            sx={styles.title}
+          >
             ✏️ Inscribe
           </Typography>
 
@@ -93,17 +102,32 @@ const NotesNavbar = () => {
             />
           </FormControl>
 
-          <Stack  flexGrow={1} direction="row" spacing={2} alignItems={"center"} justifyContent={"flex-end"}>
+          <Stack
+            flexGrow={1}
+            direction="row"
+            spacing={2}
+            alignItems={"center"}
+            justifyContent={"flex-end"}
+          >
             <Tooltip title="Add Note" placement="bottom">
               <IconButton onClick={() => navigate("/add-note")}>
                 <AddIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="Settings" placement="bottom">
-              <IconButton>
+              <IconButton id="settings-button" onClick={toggleOpen}>
                 <MoreVertIcon />
               </IconButton>
             </Tooltip>
+            <Menu
+              anchorEl={document.getElementById("settings-button")}
+              open={open}
+              onClose={toggleOpen}
+            >
+              <MenuItem>
+                <Typography>Delete All</Typography>
+              </MenuItem>
+            </Menu>
           </Stack>
         </Stack>
       </Toolbar>
