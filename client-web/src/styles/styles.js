@@ -70,8 +70,9 @@ export const noteNavbarStyles = {
   },
   menuTitle: {
     fontFamily: "var(--font-family)",
-  }
+  },
 };
+
 /* AuthModal Styles */
 export const authModalStyles = {
   title: {
@@ -178,6 +179,59 @@ export const landingPageStyles = {
       xs: "center",
       md: "left",
     },
+  },
+};
+
+/* NoteCard Styles */
+export const noteCardStyles = {
+  card: {
+    width: {
+      xs: "100%",
+      lg: "450px",
+    },
+  },
+  cardContent: {
+    height: "100%",
+  },
+  date: {
+    fontFamily: "var(--font-family)",
+    fontWeight: "var(--fw-semibold)",
+    color: "var(--secondary-color)",
+  },
+
+  header: {
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  container: {
+    height: "100%",
+  },
+
+  title: {
+    fontFamily: "var(--font-family)",
+    fontWeight: "var(--fw-bold)",
+  },
+  content: {
+    fontFamily: "var(--font-family)",
+    fontWeight: "var(--fw-regular)",
+    flex: 1,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 6,
+  },
+
+  button: {
+    marginTop: "auto",
+    fontFamily: "var(--font-family)",
+    borderColor: "var(--tertiary-color)",
+  },
+
+  buttonText: {
+    textDecoration: "none",
+    color: "var(--tertiary-color)",
   },
 };
 
