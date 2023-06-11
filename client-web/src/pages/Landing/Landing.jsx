@@ -9,16 +9,17 @@ const Landing = () => {
     isSignup: false,
     open: false,
   });
+  
   const handleLogin = () => {
     setModalState({ isSignup: false, open: true });
   };
   const handleSignup = () => {
     setModalState({ isSignup: true, open: true });
   };
-
   const handleClose = () => {
     setModalState({ isSignup: false, open: false });
   };
+
   const navbar = {
     headerText: "✏️ Inscribe",
     buttons: [
@@ -32,6 +33,7 @@ const Landing = () => {
       },
     ],
   };
+
   return (
     <Fragment>
       <Stack spacing={2} sx={landingPageStyles.wrapper}>

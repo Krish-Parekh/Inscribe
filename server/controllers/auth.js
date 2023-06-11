@@ -13,7 +13,7 @@ export const register = async (req, res) => {
       password: hashedPassword,
     });
     const savedUser = await user.save();
-    delete savedUser.password;
+    delete savedUser._doc.password;
     res.status(200).json(savedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -34,7 +34,7 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    delete user.password;
+    delete user._doc.password;
     res.status(200).json({ user: user, token: token });
   } catch (error) {
     res.status(500).json({ error: error.message });

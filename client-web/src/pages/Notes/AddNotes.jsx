@@ -1,17 +1,30 @@
-import React, { Fragment } from "react";
-import { Stack, TextField, styled } from "@mui/material";
+import React, { Fragment, useState } from "react";
+import { Stack } from "@mui/material";
 import Navbar from "../../components/Navbar/Navbar";
 import { inputFieldStyles } from "../../styles/styles";
-const CustomTextField = styled(TextField)`
-  .MuiOutlinedInput-input {
-    font-family: var(--font-family);
-    font-size: 1.2rem;
-  }
-`;
+import axios from "../../utils/axios";
 
 const AddNotes = () => {
-  const handleSave = () => {
-    console.log("Save");
+  const [note, setNote] = useState({ title: "", content: "" });
+  const handleChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value });
+  };
+  const handleSave = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const res = axios.post("/note/create", { ...note, userId }, config);
+      const data = await res.data;
+      setNote({ title: "", content: "" });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const navbar = {
     header: "📝 Add Note",
@@ -26,8 +39,20 @@ const AddNotes = () => {
         sx={{ padding: "16px" }}
         spacing={2}
       >
-        <input type="text" placeholder="Title" style={inputFieldStyles.title} />
+        <input
+          id="title"
+          value={note.title}
+          onChange={handleChange}
+          name="title"
+          type="text"
+          placeholder="Title"
+          style={inputFieldStyles.title}
+        />
         <textarea
+          id="content"
+          value={note.content}
+          onChange={handleChange}
+          name="content"
           type="text"
           placeholder="Content"
           style={inputFieldStyles.content}

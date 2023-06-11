@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/note/add" element={<AddNote />} />
-        <Route path="/note/:id" element={<Note />} />
+        <Route path="/note/:noteId" element={<Note />} />
       </Routes>
     </Router>
   );

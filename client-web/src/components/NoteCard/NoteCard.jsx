@@ -12,7 +12,10 @@ import React from "react";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { noteCardStyles } from "../../styles/styles";
 
-const NoteCard = ({ id, title, content, timestamp }) => {
+const NoteCard = ({ id, title, content, timestamp, deleteNote }) => {
+  let date = new Date(timestamp);
+  let formattedDate = date.getDate() + ' ' + date.toLocaleString('default', { month: 'long' }) + ', ' + date.getFullYear();
+  
   return (
     <Card variant="outlined" sx={noteCardStyles.card}>
       <CardContent sx={noteCardStyles.cardContent}>
@@ -23,10 +26,10 @@ const NoteCard = ({ id, title, content, timestamp }) => {
               component="div"
               sx={noteCardStyles.date}
             >
-              {timestamp}
+              {formattedDate}
             </Typography>
             <Tooltip title="Delete" placement="left">
-              <IconButton>
+              <IconButton onClick={() => deleteNote(id)}>
                 <ClearRoundedIcon />
               </IconButton>
             </Tooltip>

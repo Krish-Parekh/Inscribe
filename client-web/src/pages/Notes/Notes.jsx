@@ -1,48 +1,72 @@
 import { Stack } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NotesNavbar from "../../components/Navbar/NotesNavbar";
 import NoteCard from "../../components/NoteCard/NoteCard";
-import { Typography } from "@mui/material";
-const notes = [
-  {
-    id: 1,
-    title: "Note 1",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam a explicabo neque dignissimos obcaecati dolores distinctio veritatis omnis accusamus officiis optio corrupti magni pariatur est soluta veniam consequuntur, totam quibusdam!",
-    timestamp: "23, Sep 2023",
-  },
-  {
-    id: 2,
-    title: "Note 2",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam a explicabo neque dignissimos obcaecati dolores distinctio veritatis omnis accusamus officiis optio corrupti magni pariatur est soluta veniam consequuntur, totam quibusdam!",
-    timestamp: "23, Sep 2023",
-  },
-  {
-    id: 3,
-    title: "Note 3",
-    content: "This is the content of note 3",
-    timestamp: "23, Sep 2023",
-  },
-  {
-    id: 4,
-    title: "Note 4",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam a explicabo neque dignissimos obcaecati dolores distinctio veritatis omnis accusamus officiis optio corrupti magni pariatur est soluta veniam consequuntur, totam quibusdam!",
-    timestamp: "23, Sep 2023",
-  },
-  {
-    id: 5,
-    title: "Note 5",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam a explicabo neque dignissimos obcaecati dolores distinctio veritatis omnis accusamus officiis optio corrupti magni pariatur est soluta veniam consequuntur, totam quibusdam!",
-    timestamp: "23, Sep 2023",
-  },
-];
+import axios from "../../utils/axios";
+
 const Notes = () => {
+  const userId = localStorage.getItem("userId");
+  const [notes, setNotes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/note/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const data = await res.data;
+        setNotes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
+
+  const deleteNote = async (id) => {
+    try {
+      console.log(id);
+      const userId = localStorage.getItem("userId");
+      await axios.delete(`/note/${userId}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setNotes(notes.filter((note) => note._id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteAll = async () => {
+    try {
+      await axios.delete(`/note/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log("Deleted all notes");
+      setNotes([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Stack spacing={2}>
-      <NotesNavbar />
+      <NotesNavbar handleSearch={handleSearch} deleteAll={deleteAll}/>
       <Stack
         direction="row"
         spacing={{ xs: 1, sm: 2 }}
@@ -50,13 +74,14 @@ const Notes = () => {
         useFlexGap
         flexWrap="wrap"
       >
-        {notes.map((note) => (
+        {filteredNotes.map((note) => (
           <NoteCard
-            key={note.id}
-            id={note.id}
+            key={note._id}
+            id={note._id}
             title={note.title}
             content={note.content}
-            timestamp={note.timestamp}
+            timestamp={note.createdAt}
+            deleteNote={deleteNote}
           />
         ))}
       </Stack>

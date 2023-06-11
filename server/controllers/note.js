@@ -2,7 +2,7 @@ import Note from "../models/Note.js";
 
 export const getNotes = async (req, res) => {
   try {
-    const authorId = req.params.id;
+    const authorId = req.params.authorId;
     const notes = await Note.find({ authorId: authorId });
     res.status(200).json(notes);
   } catch (error) {
@@ -22,11 +22,11 @@ export const getNote = async (req, res) => {
 
 export const createNote = async (req, res) => {
   try {
-    const { title, content, authorId } = req.body;
+    const { title, content, userId } = req.body;
     const note = new Note({
       title: title,
       content: content,
-      authorId: authorId,
+      authorId: userId,
     });
     const savedNote = await note.save();
     res.status(200).json(savedNote);
@@ -65,7 +65,7 @@ export const deleteNote = async (req, res) => {
 
 export const deleteAllNotes = async (req, res) => {
   try {
-    const authorId = req.params.id;
+    const authorId = req.params.authorId;
     const deletedNotes = await Note.deleteMany({ authorId: authorId });
     res.status(200).json(deletedNotes);
   } catch (error) {

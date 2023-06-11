@@ -21,7 +21,7 @@ import {
   BrandStyledOutlinedInput,
 } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
-const NotesNavbar = () => {
+const NotesNavbar = ({ handleSearch, deleteAll }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -29,6 +29,7 @@ const NotesNavbar = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    deleteAll();
     setAnchorEl(null);
   };
   const handleAddNote = () => {
@@ -49,6 +50,7 @@ const NotesNavbar = () => {
               placeholder="Search..."
               id="search"
               label="Search"
+              onChange={handleSearch}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton>
