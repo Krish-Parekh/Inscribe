@@ -1,4 +1,4 @@
-package com.krish.inscribe.presentation.screens.login
+package com.krish.inscribe.presentation.screens.register
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -45,13 +45,15 @@ import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.TertiaryColor
 import com.krish.inscribe.ui.theme.geologicaFont
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
-    navigateToRegister: () -> Unit,
+fun RegisterScreen(
+    navigateToLogin: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
+    var username by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var showPassword by rememberSaveable { mutableStateOf(false) }
@@ -66,13 +68,13 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Welcome Back",
+                text = "Create an Account",
                 fontFamily = geologicaFont,
                 fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                 fontWeight = MaterialTheme.typography.headlineSmall.fontWeight,
             )
             Text(
-                text = "Let's Login. Fill in your details to get started with your note-taking app",
+                text = "Let’s Signup. Fill in your details to get started with our note-taking app",
                 fontFamily = geologicaFont,
                 fontSize = MaterialTheme.typography.bodySmall.fontSize,
                 fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
@@ -81,6 +83,48 @@ fun LoginScreen(
             )
 
             Spacer(modifier = Modifier.height(22.dp))
+
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = username,
+                onValueChange = { it ->
+                    username = it
+                },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = TertiaryColor,
+                    focusedLabelColor = TertiaryColor,
+                    cursorColor = TertiaryColor
+                ),
+                textStyle = TextStyle(
+                    fontFamily = geologicaFont,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
+                ),
+                label = {
+                    Text(
+                        text = "Username",
+                        fontFamily = geologicaFont,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = "Joe Doe",
+                        fontFamily = geologicaFont,
+                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                        fontWeight = MaterialTheme.typography.bodySmall.fontWeight
+                    )
+                },
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    autoCorrect = true,
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                singleLine = true,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = email,
@@ -118,7 +162,6 @@ fun LoginScreen(
                     keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Next
                 ),
-
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(12.dp))
@@ -144,14 +187,6 @@ fun LoginScreen(
                         fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
                     )
                 },
-                placeholder = {
-                    Text(
-                        text = "Password",
-                        fontFamily = geologicaFont,
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                        fontWeight = MaterialTheme.typography.bodySmall.fontWeight
-                    )
-                },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     autoCorrect = true,
                     keyboardType = KeyboardType.Password,
@@ -162,6 +197,14 @@ fun LoginScreen(
                         focusManager.clearFocus()
                     }
                 ),
+                placeholder = {
+                    Text(
+                        text = "Password",
+                        fontFamily = geologicaFont,
+                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                        fontWeight = MaterialTheme.typography.bodySmall.fontWeight
+                    )
+                },
                 visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
                     val icon = if (showPassword) {
@@ -183,23 +226,23 @@ fun LoginScreen(
                 onClick = { /*TODO*/ }
             ) {
                 Text(
-                    text = "Login",
+                    text = "Register",
                     fontFamily = geologicaFont,
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 buildAnnotatedString {
-                    append("Don't have an account? ")
+                    append("Have an account? ")
                     withStyle(style = SpanStyle(color = TertiaryColor)) {
-                        append("Sign up")
+                        append("Login")
                     }
                 },
                 fontFamily = geologicaFont,
                 fontSize = MaterialTheme.typography.bodySmall.fontSize,
                 fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.clickable(onClick = navigateToRegister),
+                modifier = Modifier.clickable(onClick = navigateToLogin),
             )
         }
     }
@@ -207,6 +250,6 @@ fun LoginScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen(navigateToRegister = {}, navigateToHome = {})
+fun RegisterScreenPreview() {
+    RegisterScreen(navigateToHome = {}, navigateToLogin = {})
 }
