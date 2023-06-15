@@ -31,11 +31,11 @@ export const getNote = async (req, res) => {
  *  */
 export const createNote = async (req, res) => {
   try {
-    const { title, content, userId } = req.body;
+    const { title, content, authorId } = req.body;
     const note = new Note({
       title: title,
       content: content,
-      authorId: userId,
+      authorId: authorId,
     });
     const savedNote = await note.save();
     res.status(200).json(savedNote);
