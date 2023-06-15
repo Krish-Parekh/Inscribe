@@ -2,6 +2,11 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+/**
+ * User registration endpoint.
+ * It takes the user's username, email, and password as input,
+ * hashes the password and stores the user information in the database.
+ */
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -20,6 +25,12 @@ export const register = async (req, res) => {
   }
 };
 
+
+/**
+ * User login endpoint.
+ * It takes the user's email and password as input, validates them,
+ * and if successful, generates a JWT token.
+ */
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;

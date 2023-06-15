@@ -1,5 +1,8 @@
 import Note from "../models/Note.js";
 
+/**
+ * Retrieve all notes for a given author.
+ * */
 export const getNotes = async (req, res) => {
   try {
     const authorId = req.params.authorId;
@@ -10,6 +13,9 @@ export const getNotes = async (req, res) => {
   }
 };
 
+/**
+ * Retrieve a single note for a given author.
+ */
 export const getNote = async (req, res) => {
   try {
     const { authorId, noteId } = req.params;
@@ -20,6 +26,9 @@ export const getNote = async (req, res) => {
   }
 };
 
+/**
+ * Create a new note.
+ *  */
 export const createNote = async (req, res) => {
   try {
     const { title, content, userId } = req.body;
@@ -35,6 +44,9 @@ export const createNote = async (req, res) => {
   }
 };
 
+/**
+ * Update an existing note.
+ */
 export const updateNote = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -50,6 +62,23 @@ export const updateNote = async (req, res) => {
   }
 };
 
+/**
+ * Delete all notes for a given author.
+ */
+
+export const deleteAllNotes = async (req, res) => {
+  try {
+    const authorId = req.params.authorId;
+    const deletedNotes = await Note.deleteMany({ authorId: authorId });
+    res.status(200).json(deletedNotes);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+/**
+ * Delete a single note.
+ */
 export const deleteNote = async (req, res) => {
   try {
     const { authorId, noteId } = req.params;
@@ -62,14 +91,3 @@ export const deleteNote = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-export const deleteAllNotes = async (req, res) => {
-  try {
-    const authorId = req.params.authorId;
-    const deletedNotes = await Note.deleteMany({ authorId: authorId });
-    res.status(200).json(deletedNotes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-

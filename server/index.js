@@ -13,12 +13,22 @@ app.use(express.json());
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(cors());
 
+/**
+ * Authentication Routes.
+ */
 app.use("/auth", authRoutes);
+
+/**
+ * Note Routes - Secured by verifyToken middleware.
+ */
 app.use("/note", verifyToken, noteRoutes);
 
 const CONNECTION_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 5000;
 
+/**
+ * Connects to the MongoDB database.
+ */
 const connectToDatabase = async () => {
   try {
     await mongoose.connect(CONNECTION_URL, {
@@ -32,6 +42,9 @@ const connectToDatabase = async () => {
   }
 };
 
+/**
+ * Starts the Express.js server and connects to the MongoDB database.
+ */
 const startServer = async () => {
   try {
     await connectToDatabase();
