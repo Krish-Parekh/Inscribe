@@ -9,11 +9,9 @@ import kotlinx.coroutines.flow.callbackFlow
 
 import javax.inject.Inject
 
-class NoteRepository @Inject constructor(
+class NoteRepository constructor(
     private val noteService: NoteService
 ) {
-
-
     fun register(userDetails: UserDetails) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
@@ -124,5 +122,4 @@ class NoteRepository @Inject constructor(
             close()
         }
     }
-
 }

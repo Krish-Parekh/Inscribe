@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.TertiaryColor
 import com.krish.inscribe.ui.theme.geologicaFont
 
@@ -66,92 +67,38 @@ fun EditNoteScreen() {
         ) {
             var title by rememberSaveable { mutableStateOf("") }
             var content by rememberSaveable { mutableStateOf("") }
-
             val focusManager = LocalFocusManager.current
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = title,
-                onValueChange = { it ->
-                    title = it
-                },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = TertiaryColor,
-                    focusedLabelColor = TertiaryColor,
-                    cursorColor = TertiaryColor
-                ),
-                textStyle = TextStyle(
-                    fontFamily = geologicaFont,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
-                ),
-                label = {
-                    Text(
-                        text = "Title",
-                        fontFamily = geologicaFont,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                        fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
-                    )
-                },
-                placeholder = {
-                    Text(
-                        text = "Title",
-                        fontFamily = geologicaFont,
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                        fontWeight = MaterialTheme.typography.bodySmall.fontWeight
-                    )
-                },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    autoCorrect = true,
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next
-                ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                    }
-                ),
 
-                singleLine = true,
-            )
+           CustomOutlinedTextField(
+               modifier = Modifier.fillMaxWidth(),
+               value = title,
+               onValueChange = {title = it},
+               label = "Title",
+               placeholder = "Title",
+               focusManager = focusManager,
+               keyboardOptions = KeyboardOptions.Default.copy(
+                   autoCorrect = true,
+                   keyboardType = KeyboardType.Text,
+                   imeAction = ImeAction.Next
+               ),
+           )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            OutlinedTextField(
+            CustomOutlinedTextField(
                 modifier = Modifier.fillMaxSize(),
                 value = content,
-                onValueChange = { it ->
-                    content = it
-                },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = TertiaryColor,
-                    focusedLabelColor = TertiaryColor,
-                    cursorColor = TertiaryColor,
-                ),
-                textStyle = TextStyle(
-                    fontFamily = geologicaFont,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
-                ),
-                placeholder = {
-                    Text(
-                        text = "Content",
-                        fontFamily = geologicaFont,
-                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                        fontWeight = MaterialTheme.typography.bodySmall.fontWeight
-                    )
-                },
+                onValueChange = {content = it},
+                label = "Content",
+                placeholder = "Content",
+                focusManager = focusManager,
                 keyboardOptions = KeyboardOptions.Default.copy(
                     autoCorrect = true,
-                    keyboardType = KeyboardType.Email,
+                    keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Done
                 ),
-                keyboardActions = KeyboardActions(
-                    onDone = {
-                        focusManager.clearFocus()
-                    }
-                ),
-
-                )
+                singleLine = false
+            )
         }
     }
 }

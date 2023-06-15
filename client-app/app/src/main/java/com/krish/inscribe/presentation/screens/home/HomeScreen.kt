@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -29,10 +28,8 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,11 +40,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.SurfaceColor
 import com.krish.inscribe.ui.theme.TertiaryColor
@@ -214,58 +211,25 @@ fun NoteCard(note: Note) {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar() {
     var search by rememberSaveable { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
-    OutlinedTextField(
+    CustomOutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = search,
-        onValueChange = { it ->
-            search = it
-        },
+        onValueChange = { search = it },
+        label = "Search",
+        placeholder = "Search",
+        focusManager = focusManager,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            autoCorrect = true,
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Search
+        ),
         leadingIcon = {
             Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = TertiaryColor,
-            focusedLabelColor = TertiaryColor,
-            cursorColor = TertiaryColor
-        ),
-        textStyle = TextStyle(
-            fontFamily = geologicaFont,
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
-        ),
-        label = {
-            Text(
-                text = "Search",
-                fontFamily = geologicaFont,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = MaterialTheme.typography.bodyMedium.fontWeight
-            )
-        },
-        placeholder = {
-            Text(
-                text = "Search...",
-                fontFamily = geologicaFont,
-                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                fontWeight = MaterialTheme.typography.bodySmall.fontWeight
-            )
-        },
-        keyboardOptions = KeyboardOptions.Default.copy(
-            autoCorrect = true,
-            keyboardType = KeyboardType.Email,
-            imeAction = ImeAction.Done
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = {
-                focusManager.clearFocus()
-            }
-        ),
-
-        singleLine = true,
     )
 }
 
