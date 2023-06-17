@@ -1,14 +1,13 @@
 package com.krish.inscribe.presentation.screens.register
 
 import android.content.SharedPreferences
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.krish.inscribe.data.model.UserLogin
-import com.krish.inscribe.data.model.UserRegister
-import com.krish.inscribe.data.model.UserSession
-import com.krish.inscribe.repository.NoteRepository
-import com.krish.inscribe.utils.Constants
+import com.krish.inscribe.data.model.request.RegisterRequest
+import com.krish.inscribe.data.model.response.RegisterResponse
+import com.krish.inscribe.repository.AuthRepository
 import com.krish.inscribe.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,32 +16,32 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TAG = "RegisterViewModel"
-
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val noteRepository: NoteRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _registerResponse = MutableStateFlow<NetworkResult<UserSession>>(NetworkResult.Idle)
-    val registerResponse: StateFlow<NetworkResult<UserSession>> = _registerResponse
+    private val _registerState: MutableStateFlow<NetworkResult<RegisterResponse>> = MutableStateFlow(NetworkResult.Idle)
+    val registerState: StateFlow<NetworkResult<RegisterResponse>> = _registerState
 
-
-    fun register(userRegister: UserRegister) {
+    fun register(registerRequest: RegisterRequest) {
         viewModelScope.launch(Dispatchers.IO) {
-            noteRepository.register(userRegister).collect { response ->
+            authRepository.register(registerRequest).collect { response ->
                 when (response) {
-                    NetworkResult.Idle -> TODO()
                     NetworkResult.Loading -> {
+                        _registerState.emit(NetworkResult.Loading)
+                    }
 
-                    }
                     is NetworkResult.Success -> {
-                        val userDetails = response.data
-                        Log.d(TAG, "register: $userDetails")
+                        _registerState.emit(NetworkResult.Success(data = response.data))
                     }
+
                     is NetworkResult.Failure -> {
-                        Log.d(TAG, "login: ${response.exception.message}")
+                        val exception = response.exception
+                        _registerState.emit(NetworkResult.Failure(exception = exception))
                     }
+
+                    else -> Unit
                 }
             }
         }

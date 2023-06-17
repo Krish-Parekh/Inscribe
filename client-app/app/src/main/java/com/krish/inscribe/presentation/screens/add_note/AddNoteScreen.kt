@@ -31,7 +31,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.krish.inscribe.data.model.RequestNote
+import com.krish.inscribe.data.model.request.NoteRequest
 import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.SurfaceColor
 import com.krish.inscribe.ui.theme.TertiaryColor
@@ -59,7 +59,8 @@ fun AddNoteScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    addNoteViewModel.addNote(RequestNote(title = title, content  = content))
+                    val noteRequest = NoteRequest(title = title, content = content)
+                    addNoteViewModel.create(noteRequest)
                 },
                 containerColor = TertiaryColor,
                 contentColor = SurfaceColor

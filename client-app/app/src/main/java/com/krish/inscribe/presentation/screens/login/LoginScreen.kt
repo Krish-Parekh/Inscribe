@@ -1,6 +1,6 @@
 package com.krish.inscribe.presentation.screens.login
 
-import android.content.SharedPreferences
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +15,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -41,25 +40,46 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.krish.inscribe.data.model.UserLogin
-import com.krish.inscribe.data.model.UserSession
+import com.krish.inscribe.data.model.request.LoginRequest
 import com.krish.inscribe.presentation.component.CustomOutlinedTextField
+
 import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.TertiaryColor
 import com.krish.inscribe.ui.theme.geologicaFont
 import com.krish.inscribe.utils.NetworkResult
-import javax.inject.Inject
 
+private const val TAG = "LoginScreenTAG"
 @Composable
 fun LoginScreen(
     navigateToRegister: () -> Unit,
     navigateToHome: () -> Unit,
     loginViewModel: LoginViewModel = hiltViewModel()
 ) {
+    val loginState by loginViewModel.loginState.collectAsState()
+
     val focusManager = LocalFocusManager.current
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var showPassword by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = loginState) {
+        when (val result = loginState) {
+            NetworkResult.Idle -> Unit
+            NetworkResult.Loading -> {
+                Log.d(TAG, "LoginScreen: Loading...")
+            }
+            is NetworkResult.Success -> {
+                val message = result.data.message
+                Log.d(TAG, "LoginScreen: $message")
+            }
+
+            is NetworkResult.Failure -> {
+                val exception = result.exception
+                val message = exception.message
+                Log.d(TAG, "LoginScreen: $message")
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -132,7 +152,8 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(TertiaryColor),
                 onClick = {
-                    loginViewModel.login(UserLogin(email, password))
+                    val loginRequest = LoginRequest(email, password)
+                    loginViewModel.login(loginRequest)
                 }
             ) {
                 Text(

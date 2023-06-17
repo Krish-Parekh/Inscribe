@@ -1,52 +1,40 @@
 package com.krish.inscribe.data.network
 
 import com.krish.inscribe.data.model.Note
-import com.krish.inscribe.data.model.RequestNote
-import com.krish.inscribe.data.model.User
-import com.krish.inscribe.data.model.UserLogin
-import com.krish.inscribe.data.model.UserRegister
-import com.krish.inscribe.data.model.UserSession
-import retrofit2.http.*
+import com.krish.inscribe.data.model.request.NoteRequest
+import com.krish.inscribe.data.model.response.NoteResponse
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface NoteService {
+    @POST("create")
+    suspend fun create(@Body noteRequest: NoteRequest): NoteResponse
 
-    @POST("auth/register")
-    suspend fun register(@Body userDetails: UserRegister): User
+    @GET("{userId}")
+    suspend fun getNotes(@Path("userId") userId: String): List<Note>
 
-    @POST("auth/login")
-    suspend fun login(@Body userDetails: UserLogin): UserSession
-
-    @GET("note/{authorId}")
-    suspend fun getNotes(
-        @Header("Authorization") token: String,
-        @Path("authorId") authorId: String
-    ): List<Note>
-
-    @GET("note/{authorId}/{noteId}")
+    @GET("{userId}/{noteId}")
     suspend fun getNote(
-        @Path("authorId") authorId: String,
+        @Path("userId") userId: String,
         @Path("noteId") noteId: String
-    ): Note
+    ): NoteResponse
 
-    @POST("note/create")
-    suspend fun createNote(
-        @Header("Authorization") token: String,
-        @Body newNote: RequestNote
-    ): Note
-
-    @PUT("note/{authorId}/{noteId}")
+    @PATCH("{userId}/{noteId}")
     suspend fun updateNote(
-        @Path("authorId") authorId: String,
-        @Path("noteId") noteId: String,
-        @Body note: Note
-    ): Note
-
-    @DELETE("note/{authorId}/{noteId}")
-    suspend fun deleteNote(
-        @Path("authorId") authorId: String,
+        @Path("userId") userId: String,
         @Path("noteId") noteId: String
-    ): Note
+    ): NoteResponse
 
-    @DELETE("note/{authorId}")
-    suspend fun deleteAllNotes(@Path("authorId") authorId: String): List<Note>
+    @DELETE("{userId}/{noteId}")
+    suspend fun deleteNote(
+        @Path("userId") userId: String,
+        @Path("noteId") noteId: String
+    ): NoteResponse
+
+    @DELETE("{userId}")
+    suspend fun deleteAllNotes(@Path("userId") userId: String) : NoteResponse
 }

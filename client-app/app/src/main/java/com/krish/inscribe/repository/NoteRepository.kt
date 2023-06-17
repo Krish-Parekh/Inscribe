@@ -1,9 +1,6 @@
 package com.krish.inscribe.repository
 
-import com.krish.inscribe.data.model.Note
-import com.krish.inscribe.data.model.RequestNote
-import com.krish.inscribe.data.model.UserLogin
-import com.krish.inscribe.data.model.UserRegister
+import com.krish.inscribe.data.model.request.NoteRequest
 import com.krish.inscribe.data.network.NoteService
 import com.krish.inscribe.utils.NetworkResult
 import kotlinx.coroutines.channels.awaitClose
@@ -13,112 +10,85 @@ import javax.inject.Inject
 class NoteRepository @Inject constructor(
     private val noteService: NoteService
 ) {
-    fun register(userDetails: UserRegister) = callbackFlow {
+    suspend fun create(noteRequest: NoteRequest) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.register(userDetails)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
+            val response = noteService.create(noteRequest)
+            trySend(NetworkResult.Success(data = response))
+        } catch (exception: Exception) {
+            trySend(NetworkResult.Failure(exception = exception))
         }
+
         awaitClose {
             close()
         }
     }
 
-
-    fun login(userDetails: UserLogin) = callbackFlow {
+    suspend fun getNotes(userId: String) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.login(userDetails)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
+            val response = noteService.getNotes(userId)
+            trySend(NetworkResult.Success(data = response))
+        } catch (exception: Exception) {
+            trySend(NetworkResult.Failure(exception = exception))
         }
+
         awaitClose {
             close()
         }
     }
 
-
-    fun getNotes(token: String,authorId: String) = callbackFlow {
+    suspend fun getNote(userId: String, noteId: String) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.getNotes(token, authorId)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
+            val response = noteService.getNote(userId, noteId)
+            trySend(NetworkResult.Success(data = response))
+        } catch (exception: Exception) {
+            trySend(NetworkResult.Failure(exception = exception))
         }
+
         awaitClose {
             close()
         }
     }
 
-
-    fun getNote(authorId: String, noteId: String) = callbackFlow {
+    suspend fun updateNote(userId: String, noteId: String) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.getNote(authorId, noteId)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
+            val response = noteService.updateNote(userId, noteId)
+            trySend(NetworkResult.Success(data = response))
+        } catch (exception: Exception) {
+            trySend(NetworkResult.Failure(exception = exception))
         }
+
         awaitClose {
             close()
         }
     }
 
-
-    fun createNote(token: String, newNote: RequestNote) = callbackFlow {
+    suspend fun deleteNote(userId: String, noteId: String) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.createNote(token, newNote)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
+            val response = noteService.deleteNote(userId, noteId)
+            trySend(NetworkResult.Success(data = response))
+        } catch (exception: Exception) {
+            trySend(NetworkResult.Failure(exception = exception))
         }
+
         awaitClose {
             close()
         }
     }
 
-
-    fun updateNote(authorId: String, noteId: String, note: Note) = callbackFlow {
+    suspend fun deleteAllNotes(userId: String) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.updateNote(authorId, noteId, note)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
+            val response = noteService.deleteAllNotes(userId)
+            trySend(NetworkResult.Success(data = response))
+        } catch (exception: Exception) {
+            trySend(NetworkResult.Failure(exception = exception))
         }
-        awaitClose {
-            close()
-        }
-    }
 
-
-    fun deleteNote(authorId: String, noteId: String) = callbackFlow {
-        trySend(NetworkResult.Loading)
-        try {
-            val response = noteService.deleteNote(authorId, noteId)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
-        }
-        awaitClose {
-            close()
-        }
-    }
-
-
-    fun deleteAllNotes(authorId: String) = callbackFlow {
-        trySend(NetworkResult.Loading)
-        try {
-            val response = noteService.deleteAllNotes(authorId)
-            trySend(NetworkResult.Success(response))
-        } catch (e: Exception) {
-            trySend(NetworkResult.Failure(e))
-        }
         awaitClose {
             close()
         }

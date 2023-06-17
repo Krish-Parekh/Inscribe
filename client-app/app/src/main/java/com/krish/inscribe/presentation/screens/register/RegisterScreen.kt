@@ -1,5 +1,6 @@
 package com.krish.inscribe.presentation.screens.register
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,21 +9,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -31,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,23 +40,48 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.krish.inscribe.data.model.UserRegister
+import com.krish.inscribe.data.model.request.RegisterRequest
 import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.TertiaryColor
 import com.krish.inscribe.ui.theme.geologicaFont
+import com.krish.inscribe.utils.NetworkResult
 
+
+private const val TAG = "RegisterScreenTAG"
 
 @Composable
 fun RegisterScreen(
     navigateToLogin: () -> Unit,
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
+    val registerState by registerViewModel.registerState.collectAsState()
     val focusManager = LocalFocusManager.current
     var username by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var showPassword by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(key1 = registerState) {
+        when (val result = registerState) {
+            NetworkResult.Idle -> Unit
+            NetworkResult.Loading -> {
+                Log.d(TAG, "RegisterScreen: Loading...")
+            }
+            is NetworkResult.Success -> {
+                val message = result.data.message
+                Log.d(TAG, "RegisterScreen: $message")
+                navigateToLogin.invoke()
+            }
+
+            is NetworkResult.Failure -> {
+                val exception = result.exception
+                val message = exception.message
+                Log.d(TAG, "RegisterScreen: $message")
+            }
+        }
+    }
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +112,7 @@ fun RegisterScreen(
             CustomOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = username,
-                onValueChange = {username = it},
+                onValueChange = { username = it },
                 label = "Username",
                 placeholder = "Username",
                 focusManager = focusManager,
@@ -149,7 +172,8 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(TertiaryColor),
                 onClick = {
-                    registerViewModel.register(UserRegister(username, email, password))
+                    val registerRequest = RegisterRequest(username, email, password)
+                    registerViewModel.register(registerRequest)
                 }
             ) {
                 Text(
