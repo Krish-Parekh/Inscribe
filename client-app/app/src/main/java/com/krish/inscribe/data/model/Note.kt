@@ -13,7 +13,7 @@ data class Note(
     @SerialName("createdAt")
     val createdAt: String,
     @SerialName("_id")
-    val id: String,
+    val _id: String,
     @SerialName("title")
     val title: String,
     @SerialName("updatedAt")

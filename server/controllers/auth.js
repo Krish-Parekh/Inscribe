@@ -19,12 +19,11 @@ export const register = async (req, res) => {
     });
     const savedUser = await user.save();
     delete savedUser._doc.password;
-    res.status(200).json(savedUser);
+    res.status(200).json({ user: savedUser });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 /**
  * User login endpoint.

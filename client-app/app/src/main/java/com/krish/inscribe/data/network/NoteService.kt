@@ -1,29 +1,38 @@
 package com.krish.inscribe.data.network
 
-import com.krish.inscribe.data.model.UserSession
 import com.krish.inscribe.data.model.Note
-import com.krish.inscribe.data.model.UserDetails
+import com.krish.inscribe.data.model.RequestNote
+import com.krish.inscribe.data.model.User
+import com.krish.inscribe.data.model.UserLogin
+import com.krish.inscribe.data.model.UserRegister
+import com.krish.inscribe.data.model.UserSession
 import retrofit2.http.*
 
 interface NoteService {
 
-    @POST("register")
-    suspend fun register(@Body userDetails: UserDetails)
+    @POST("auth/register")
+    suspend fun register(@Body userDetails: UserRegister): User
 
-    @POST("login")
-    suspend fun login(@Body userDetails: UserDetails): UserSession
+    @POST("auth/login")
+    suspend fun login(@Body userDetails: UserLogin): UserSession
 
-    @GET("{authorId}")
-    suspend fun getNotes(@Path("authorId") authorId: String): List<Note>
+    @GET("note/{authorId}")
+    suspend fun getNotes(
+        @Header("Authorization") token: String,
+        @Path("authorId") authorId: String
+    ): List<Note>
 
-    @GET("{authorId}/{noteId}")
+    @GET("note/{authorId}/{noteId}")
     suspend fun getNote(
         @Path("authorId") authorId: String,
         @Path("noteId") noteId: String
     ): Note
 
-    @POST("create")
-    suspend fun createNote(@Body newNote: Note): Note
+    @POST("note/create")
+    suspend fun createNote(
+        @Header("Authorization") token: String,
+        @Body newNote: RequestNote
+    ): Note
 
     @PUT("{authorId}/{noteId}")
     suspend fun updateNote(

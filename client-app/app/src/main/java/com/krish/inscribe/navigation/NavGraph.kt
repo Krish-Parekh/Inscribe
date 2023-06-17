@@ -21,21 +21,42 @@ fun SetupNavGraph(
         startDestination = startDestination
     ) {
         composable(route = Screen.OnBoardingScreen.route) {
-            OnBoardingScreen(navigateToLogin = {})
+            OnBoardingScreen(
+                navigateToLogin = {
+                    navController.navigate(Screen.LoginScreen.route)
+                }
+            )
         }
 
         composable(route = Screen.LoginScreen.route) {
-            LoginScreen(navigateToRegister = {}, navigateToHome = {})
+            LoginScreen(
+                navigateToRegister = {
+                    navController.popBackStack()
+                    navController.navigate(Screen.RegisterScreen.route)
+                }, navigateToHome = {
+                    navController.popBackStack()
+                    navController.navigate(Screen.HomeScreen.route)
+                }
+            )
         }
 
         composable(route = Screen.RegisterScreen.route) {
-            RegisterScreen(navigateToLogin = {}, navigateToHome = {})
+            RegisterScreen(
+                navigateToLogin = {
+                    navController.popBackStack()
+                    navController.navigate(Screen.LoginScreen.route)
+                }
+            )
         }
 
         composable(route = Screen.HomeScreen.route) {
             HomeScreen(
-                navigateToAdd = {},
-                navigateToEdit = {}
+                navigateToAdd = {
+                    navController.navigate(Screen.AddNoteScreen.route)
+                },
+                navigateToEdit = {
+                    navController.navigate(Screen.EditNoteScreen.route)
+                }
             )
         }
 

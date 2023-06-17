@@ -3,6 +3,7 @@ package com.krish.inscribe.presentation.screens.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,6 +45,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.SurfaceColor
@@ -110,7 +112,8 @@ val notes = listOf<Note>(
 @Composable
 fun HomeScreen(
     navigateToEdit: (id: String) -> Unit,
-    navigateToAdd: () -> Unit
+    navigateToAdd: () -> Unit,
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     Scaffold(
         topBar = {

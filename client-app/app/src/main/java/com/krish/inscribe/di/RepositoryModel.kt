@@ -14,9 +14,7 @@ object RepositoryModel {
 
     @Provides
     @Singleton
-    fun provideNoteRepository(
-        noteService: NoteService
-    ): NoteRepository {
+    fun provideNoteRepository(noteService: NoteService): NoteRepository {
         return NoteRepository(noteService)
     }
 }

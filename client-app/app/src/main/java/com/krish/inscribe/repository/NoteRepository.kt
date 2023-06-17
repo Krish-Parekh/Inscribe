@@ -1,18 +1,19 @@
 package com.krish.inscribe.repository
 
 import com.krish.inscribe.data.model.Note
-import com.krish.inscribe.data.model.UserDetails
+import com.krish.inscribe.data.model.RequestNote
+import com.krish.inscribe.data.model.UserLogin
+import com.krish.inscribe.data.model.UserRegister
 import com.krish.inscribe.data.network.NoteService
 import com.krish.inscribe.utils.NetworkResult
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-
 import javax.inject.Inject
 
-class NoteRepository constructor(
+class NoteRepository @Inject constructor(
     private val noteService: NoteService
 ) {
-    fun register(userDetails: UserDetails) = callbackFlow {
+    fun register(userDetails: UserRegister) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
             val response = noteService.register(userDetails)
@@ -26,7 +27,7 @@ class NoteRepository constructor(
     }
 
 
-    fun login(userDetails: UserDetails) = callbackFlow {
+    fun login(userDetails: UserLogin) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
             val response = noteService.login(userDetails)
@@ -40,10 +41,10 @@ class NoteRepository constructor(
     }
 
 
-    fun getNotes(authorId: String) = callbackFlow {
+    fun getNotes(token: String,authorId: String) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.getNotes(authorId)
+            val response = noteService.getNotes(token, authorId)
             trySend(NetworkResult.Success(response))
         } catch (e: Exception) {
             trySend(NetworkResult.Failure(e))
@@ -68,10 +69,10 @@ class NoteRepository constructor(
     }
 
 
-    fun createNote(newNote: Note) = callbackFlow {
+    fun createNote(token: String, newNote: RequestNote) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.createNote(newNote)
+            val response = noteService.createNote(token, newNote)
             trySend(NetworkResult.Success(response))
         } catch (e: Exception) {
             trySend(NetworkResult.Failure(e))

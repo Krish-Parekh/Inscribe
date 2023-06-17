@@ -5,13 +5,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserDetails(
+data class User(
     @SerialName("createdAt")
     val createdAt: String,
     @SerialName("email")
     val email: String,
     @SerialName("_id")
-    val id: String,
+    val _id: String,
     @SerialName("updatedAt")
     val updatedAt: String,
     @SerialName("username")

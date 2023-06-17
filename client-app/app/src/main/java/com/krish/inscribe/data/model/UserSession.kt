@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 data class UserSession(
     @SerialName("token")
     val token: String,
-    @SerialName("userDetails")
-    val userDetails: UserDetails
+    @SerialName("user")
+    val user: User
 )

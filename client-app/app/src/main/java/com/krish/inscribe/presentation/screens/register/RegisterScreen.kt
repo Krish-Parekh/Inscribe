@@ -41,17 +41,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.krish.inscribe.data.model.UserRegister
 import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.TertiaryColor
 import com.krish.inscribe.ui.theme.geologicaFont
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     navigateToLogin: () -> Unit,
-    navigateToHome: () -> Unit,
+    registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
     val focusManager = LocalFocusManager.current
     var username by rememberSaveable { mutableStateOf("") }
@@ -147,7 +148,9 @@ fun RegisterScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(TertiaryColor),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    registerViewModel.register(UserRegister(username, email, password))
+                }
             ) {
                 Text(
                     text = "Register",
@@ -175,5 +178,5 @@ fun RegisterScreen(
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen(navigateToHome = {}, navigateToLogin = {})
+    RegisterScreen(navigateToLogin = {})
 }

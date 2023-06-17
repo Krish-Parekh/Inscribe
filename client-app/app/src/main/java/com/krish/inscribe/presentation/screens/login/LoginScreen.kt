@@ -1,5 +1,6 @@
 package com.krish.inscribe.presentation.screens.login
 
+import android.content.SharedPreferences
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -37,21 +40,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.krish.inscribe.data.model.UserLogin
+import com.krish.inscribe.data.model.UserSession
 import com.krish.inscribe.presentation.component.CustomOutlinedTextField
 import com.krish.inscribe.ui.theme.SecondaryColor
 import com.krish.inscribe.ui.theme.TertiaryColor
 import com.krish.inscribe.ui.theme.geologicaFont
+import com.krish.inscribe.utils.NetworkResult
+import javax.inject.Inject
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navigateToRegister: () -> Unit,
     navigateToHome: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
     val focusManager = LocalFocusManager.current
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var showPassword by rememberSaveable { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -122,7 +131,9 @@ fun LoginScreen(
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(TertiaryColor),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    loginViewModel.login(UserLogin(email, password))
+                }
             ) {
                 Text(
                     text = "Login",
