@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import '../utils/error.js';
 
 /**
  * Middleware function to verify the JWT token in the request header.
@@ -11,16 +12,29 @@ export const verifyToken = async (req, res, next) => {
     let token = req.header("Authorization");
 
     if (!token) {
-      return res.status(403).send("Access Denied");
+      throw createError(403, "Access Denied. No token provided.");
     }
 
     if (token.startsWith("Bearer ")) {
       token = token.slice(7, token.length).trimLeft();
     }
     const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) {
+      throw createError(401, "Failed to authenticate token.");
+    }
     req.user = verified;
     next();
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    let status = error.status || 500;
+    let message = error.message || 'Something went wrong';
+    res.status(status).json({ 
+      message: message,
+      status: status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl
+      }
+    });
   }
 };

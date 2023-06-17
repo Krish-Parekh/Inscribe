@@ -34,19 +34,19 @@ interface NoteService {
         @Body newNote: RequestNote
     ): Note
 
-    @PUT("{authorId}/{noteId}")
+    @PUT("note/{authorId}/{noteId}")
     suspend fun updateNote(
         @Path("authorId") authorId: String,
         @Path("noteId") noteId: String,
         @Body note: Note
     ): Note
 
-    @DELETE("{authorId}/{noteId}")
+    @DELETE("note/{authorId}/{noteId}")
     suspend fun deleteNote(
         @Path("authorId") authorId: String,
         @Path("noteId") noteId: String
     ): Note
 
-    @DELETE("{authorId}")
+    @DELETE("note/{authorId}")
     suspend fun deleteAllNotes(@Path("authorId") authorId: String): List<Note>
 }

@@ -12,15 +12,15 @@ const router = express.Router();
 
 /**
  * Route serving a list of notes created by a specific author.
- * @name get/:authorId
+ * @name get/:userId
  */
-router.get("/:authorId", getNotes);
+router.get("/:userId", getNotes);
 
 /**
  * Route serving a single note by its id and author's id.
- * @name get/:authorId/:noteId
+ * @name get/:userId/:noteId
  */
-router.get("/:authorId/:noteId", getNote);
+router.get("/:userId/:noteId", getNote);
 
 
 /**
@@ -31,20 +31,20 @@ router.post("/create", createNote);
 
 /**
  * Route to update an existing note by its id and author's id.
- * @name put/:authorId/:noteId
+ * @name put/:userId/:noteId
  */
-router.put("/:authorId/:noteId", updateNote);
+router.put("/:userId/:noteId", updateNote);
 
 /**
  * Route to delete a specific note by its id and author's id.
- * @name delete/:authorId/:noteId
+ * @name delete/:userId/:noteId
  */
-router.delete("/:authorId/:noteId", deleteNote);
+router.delete("/:userId/:noteId", deleteNote);
 
 /**
  * Route to delete all notes created by a specific author.
- * @name delete/:authorId
+ * @name delete/:userId
  */
-router.delete("/:authorId", deleteAllNotes);
+router.delete("/:userId", deleteAllNotes);
 
 export default router;

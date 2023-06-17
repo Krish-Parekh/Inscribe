@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import noteRoutes from "./routes/note.js";
 import { verifyToken } from "./middlewares/auth.js";
+
 /* Configuration Setup */
 dotenv.config();
 const app = express();

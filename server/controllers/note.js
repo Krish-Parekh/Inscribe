@@ -5,11 +5,30 @@ import Note from "../models/Note.js";
  * */
 export const getNotes = async (req, res) => {
   try {
-    const authorId = req.params.authorId;
-    const notes = await Note.find({ authorId: authorId });
-    res.status(200).json(notes);
+    const userId = req.params.userId;
+    const notes = await Note.find({ userId: userId });
+    if (!notes) {
+      throw createError(404, "Notes not found.");
+    }
+    res
+      .status(200)
+      .json({ 
+        message: "Notes retrieved successfully.",
+        status: 200,
+        notes: notes 
+      });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+    res.status(status).json({
+      message,
+      status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl,
+      },
+    });
   }
 };
 
@@ -18,11 +37,31 @@ export const getNotes = async (req, res) => {
  */
 export const getNote = async (req, res) => {
   try {
-    const { authorId, noteId } = req.params;
-    const note = await Note.findOne({ authorId: authorId, _id: noteId });
-    res.status(200).json(note);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const { userId, noteId } = req.params;
+    const note = await Note.findOne({ userId: userId, _id: noteId });
+
+    if (!note) {
+      throw createError(404, "Note not found.");
+    }
+
+    res.status(200).json({
+      message: 'Note retrieved successfully.',
+      status: 200,
+      note: note,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+
+    res.status(status).json({
+      message,
+      status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl,
+      },
+    });
   }
 };
 
@@ -31,16 +70,32 @@ export const getNote = async (req, res) => {
  *  */
 export const createNote = async (req, res) => {
   try {
-    const { title, content, authorId } = req.body;
+    const { title, content, userId } = req.body;
     const note = new Note({
       title: title,
       content: content,
-      authorId: authorId,
+      userId: userId,
     });
     const savedNote = await note.save();
-    res.status(200).json(savedNote);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+
+    res.status(200).json({
+      message: 'Note created successfully.',
+      status: 200,
+      note: savedNote,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+
+    res.status(status).json({
+      message,
+      status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl,
+      },
+    });
   }
 };
 
@@ -50,15 +105,35 @@ export const createNote = async (req, res) => {
 export const updateNote = async (req, res) => {
   try {
     const { title, content } = req.body;
-    const { authorId, noteId } = req.params;
+    const { userId, noteId } = req.params;
     const updatedNote = await Note.findOneAndUpdate(
-      { authorId: authorId, _id: noteId },
+      { userId: userId, _id: noteId },
       { title: title, content: content },
       { new: true }
     );
-    res.status(200).json(updatedNote);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+
+    if (!updatedNote) {
+      throw createError(404, "Note not found.");
+    }
+
+    res.status(200).json({
+      message: 'Note updated successfully.',
+      status: 200,
+      note: updatedNote,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+
+    res.status(status).json({
+      message,
+      status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl,
+      },
+    });
   }
 };
 
@@ -68,11 +143,27 @@ export const updateNote = async (req, res) => {
 
 export const deleteAllNotes = async (req, res) => {
   try {
-    const authorId = req.params.authorId;
-    const deletedNotes = await Note.deleteMany({ authorId: authorId });
-    res.status(200).json(deletedNotes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const userId = req.params.userId;
+    const deletedNotes = await Note.deleteMany({ userId: userId });
+
+    res.status(200).json({
+      message: 'All notes deleted successfully.',
+      status: 200,
+      notes: deletedNotes,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+
+    res.status(status).json({
+      message,
+      status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl,
+      },
+    });
   }
 };
 
@@ -81,13 +172,33 @@ export const deleteAllNotes = async (req, res) => {
  */
 export const deleteNote = async (req, res) => {
   try {
-    const { authorId, noteId } = req.params;
+    const { userId, noteId } = req.params;
     const deletedNote = await Note.findOneAndDelete({
-      authorId: authorId,
+      userId: userId,
       _id: noteId,
     });
-    res.status(200).json(deletedNote);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+
+    if (!deletedNote) {
+      throw createError(404, "Note not found.");
+    }
+
+    res.status(200).json({
+      message: 'Note deleted successfully.',
+      status: 200,
+      note: deletedNote,
+    });
+  } catch (err) {
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+
+    res.status(status).json({
+      message,
+      status,
+      meta: {
+        timestamp: new Date(),
+        method: req.method,
+        url: req.originalUrl,
+      },
+    });
   }
 };
