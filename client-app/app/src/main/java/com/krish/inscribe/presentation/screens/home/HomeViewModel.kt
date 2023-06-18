@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.krish.inscribe.data.model.Note
+import com.krish.inscribe.data.model.response.NoteResponse
+import com.krish.inscribe.data.model.response.NotesResponse
 import com.krish.inscribe.repository.NoteRepository
 import com.krish.inscribe.utils.Constants.Companion.USER_ID
 import com.krish.inscribe.utils.NetworkResult
@@ -20,12 +22,15 @@ class HomeViewModel @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
-    private val _notes: MutableStateFlow<NetworkResult<List<Note>>> = MutableStateFlow(NetworkResult.Idle)
-    val notes: StateFlow<NetworkResult<List<Note>>> = _notes
+    private val _notes: MutableStateFlow<NetworkResult<NotesResponse>> = MutableStateFlow(NetworkResult.Idle)
+    val notes: StateFlow<NetworkResult<NotesResponse>> = _notes
 
     private val _deleteState: MutableStateFlow<NetworkResult<String>> = MutableStateFlow(NetworkResult.Idle)
     val deleteState: StateFlow<NetworkResult<String>> = _deleteState
 
+    init {
+        getNotes()
+    }
 
     fun getNotes() {
         viewModelScope.launch {

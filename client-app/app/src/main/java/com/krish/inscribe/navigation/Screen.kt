@@ -6,5 +6,9 @@ sealed class Screen(val route: String) {
     object RegisterScreen: Screen("register")
     object HomeScreen: Screen("home")
     object AddNoteScreen: Screen("add_note")
-    object EditNoteScreen: Screen("edit_note")
+    object EditNoteScreen: Screen("edit_note/{noteId}"){
+        fun passNoteId(noteId: String): String {
+            return "edit_note/$noteId"
+        }
+    }
 }

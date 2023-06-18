@@ -52,10 +52,10 @@ class NoteRepository @Inject constructor(
         }
     }
 
-    suspend fun updateNote(userId: String, noteId: String) = callbackFlow {
+    suspend fun updateNote(userId: String, noteId: String, noteRequest: NoteRequest) = callbackFlow {
         trySend(NetworkResult.Loading)
         try {
-            val response = noteService.updateNote(userId, noteId)
+            val response = noteService.updateNote(userId, noteId, noteRequest)
             trySend(NetworkResult.Success(data = response))
         } catch (exception: Exception) {
             trySend(NetworkResult.Failure(exception = exception))

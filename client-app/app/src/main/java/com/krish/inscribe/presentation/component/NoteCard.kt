@@ -1,6 +1,7 @@
 package com.krish.inscribe.presentation.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,11 +25,15 @@ import com.krish.inscribe.ui.theme.SurfaceColor
 import com.krish.inscribe.ui.theme.geologicaFont
 
 @Composable
-fun NoteCard(note: Note) {
+fun NoteCard(
+    note: Note,
+    onClick: (noteId: String) -> Unit,
+    onDelete: (noteId: String) -> Unit
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable { onClick(note._id) },
         colors = CardDefaults.cardColors(SurfaceColor),
-        border = BorderStroke(1.dp, SecondaryColor)
+        border = BorderStroke(1.dp, SecondaryColor),
     ) {
         Column(
             modifier = Modifier
@@ -51,7 +56,7 @@ fun NoteCard(note: Note) {
                 Icon(
                     imageVector = Icons.Default.Clear,
                     contentDescription = "delete",
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(18.dp).clickable { onDelete(note._id) }
                 )
             }
 

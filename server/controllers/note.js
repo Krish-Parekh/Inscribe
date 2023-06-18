@@ -10,16 +10,14 @@ export const getNotes = async (req, res) => {
     if (!notes) {
       throw createError(404, "Notes not found.");
     }
-    res
-      .status(200)
-      .json({ 
-        message: "Notes retrieved successfully.",
-        status: 200,
-        notes: notes 
-      });
+    res.status(200).json({
+      message: "Notes retrieved successfully.",
+      status: 200,
+      notes: notes,
+    });
   } catch (error) {
-    const status = err.status || 500;
-    const message = err.message || "Something went wrong";
+    const status = error.status || 500;
+    const message = error.message || "Something went wrong";
     res.status(status).json({
       message,
       status,
@@ -45,7 +43,7 @@ export const getNote = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'Note retrieved successfully.',
+      message: "Note retrieved successfully.",
       status: 200,
       note: note,
     });
@@ -79,7 +77,7 @@ export const createNote = async (req, res) => {
     const savedNote = await note.save();
 
     res.status(200).json({
-      message: 'Note created successfully.',
+      message: "Note created successfully.",
       status: 200,
       note: savedNote,
     });
@@ -117,7 +115,7 @@ export const updateNote = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'Note updated successfully.',
+      message: "Note updated successfully.",
       status: 200,
       note: updatedNote,
     });
@@ -147,7 +145,7 @@ export const deleteAllNotes = async (req, res) => {
     const deletedNotes = await Note.deleteMany({ userId: userId });
 
     res.status(200).json({
-      message: 'All notes deleted successfully.',
+      message: "All notes deleted successfully.",
       status: 200,
       notes: deletedNotes,
     });
@@ -183,8 +181,7 @@ export const deleteNote = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'Note deleted successfully.',
-      status: 200,
+      message: "Note deleted successfully.",
       note: deletedNote,
     });
   } catch (err) {
