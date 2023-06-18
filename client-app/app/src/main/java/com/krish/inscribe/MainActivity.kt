@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.krish.inscribe.navigation.Screen
 import com.krish.inscribe.navigation.SetupNavGraph
 import com.krish.inscribe.ui.theme.InscribeTheme
+import com.krish.inscribe.utils.Constants.Companion.BOARDING_COMPLETED
 import com.krish.inscribe.utils.Constants.Companion.JWT_TOKEN
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,7 +43,10 @@ class MainActivity : ComponentActivity() {
 
     private fun getStartDestination(): String {
         val token = sharedPreferences.getString(JWT_TOKEN, "")
-        return if (token.isNullOrEmpty()) {
+        val onBoardingState = sharedPreferences.getBoolean(BOARDING_COMPLETED, false)
+        return if (onBoardingState.not()) {
+            Screen.OnBoardingScreen.route
+        } else if (token.isNullOrEmpty()) {
             Screen.LoginScreen.route
         } else {
             Screen.HomeScreen.route

@@ -7,5 +7,6 @@ class Constants {
 
         const val JWT_TOKEN = "jwt_token"
         const val USER_ID = "user_id"
+        const val BOARDING_COMPLETED = "on_boarding_completed"
     }
 }
